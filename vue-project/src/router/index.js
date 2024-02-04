@@ -8,7 +8,11 @@ const routes = [
     name: "inicio",
     component: () => import("../views/Inicio.vue"),
     children: [
- 
+      {
+        path: "/register",
+        name: "register",
+        component: () => import("../components/Register/Register.vue"),
+      }
     ],
   },
   {

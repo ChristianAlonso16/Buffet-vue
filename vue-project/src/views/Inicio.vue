@@ -6,7 +6,7 @@
       <div class="d-flex flex-column text-center">
         <b-col class="col">
           <div class="container mt-5">
-            <CarouselPage/>
+            <router-view></router-view>
           </div>
         </b-col>
         <b-col class="col-12">
