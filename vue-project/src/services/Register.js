@@ -20,7 +20,6 @@ const registerUser = async (nameP, lastnameP, emailP, passwordP) => {
     }
 };
 
-
 export default {
     registerUser
 };

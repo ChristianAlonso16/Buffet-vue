@@ -12,6 +12,11 @@ const routes = [
         path: "/register",
         name: "register",
         component: () => import("../components/Register/Register.vue"),
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: () => import("../components/Login/Login.vue"),
       }
     ],
   },
@@ -20,5 +25,5 @@ const routes = [
     component: () => import("../views/ErrorPage/Error404.vue"),
   },
 ];
-const router = new VueRouter({ routes });
+const router = new VueRouter({ mode: 'history', routes });
 export default router;

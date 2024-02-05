@@ -1,13 +1,11 @@
-<template lang="">
+<template>
     <div>
-        Not found
+        <h1>Not Found</h1>
     </div>
 </template>
+
 <script>
-export default {
-    
-}
+    export default {}
 </script>
-<style lang="">
-    
-</style>
+
+<style></style>
