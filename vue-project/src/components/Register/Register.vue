@@ -8,12 +8,19 @@
                 <b-container>
                     <b-form @submit="onRegister" v-if="show">
                         <h3 class="mt-4 mb-5 text-center">Registro</h3>
+                        
                         <label for="" class="r-text-inter" >Nombre(s)</label>
-                        <b-form-input class="mb-3 r-input" type="text" v-modal="name" required></b-form-input>
+                        <b-form-input class="mb-3 r-input" type="text" v-model="name" required></b-form-input>
+                        
                         <label for="" class="r-text-inter">Apellido(s)</label>
-                        <b-form-input class="mb-3 r-input" type="text" v-modal="lastname" required></b-form-input>
+                        <b-form-input class="mb-3 r-input" type="text" v-model="lastname" required></b-form-input>
+                        
                         <label for="" class="r-text-inter">Correo electronico</label>
-                        <b-form-input class="mb-5 r-input" type="email" v-modal="email" required></b-form-input>
+                        <b-form-input class="mb-3 r-input" type="email" v-model="email" required></b-form-input>
+
+                        <label for="input-live" class="r-text-inter">Password</label>
+                        <b-form-input class="mb-5 r-input" type="password" v-model="password" minlength="8" maxlength="15" required></b-form-input>
+                        
                         <div class="text-center mb-5">
                             <b-button variant="success" type="submit" class="mb-2 r-button w-50">Registrarte</b-button>
                             <p>¿Ya tienes una cuenta con nostros?<a href=""> inicia sesion</a></p>
@@ -25,28 +32,40 @@
     </b-container>
 </template>
 <script>
+import registerServices from "../../services/Register";
+
 export default {
     data() {
         return {
             show: true,
-            name: '',
-            lastname: '',
-            email: '',
+            name: null,
+            lastname: null,
+            email: null,
+            password: null,
         }
     },
     methods: {
-        onRegister(event) {
+        async onRegister(event) {
             event.preventDefault();
-            const emailRegex = /^(?=.*[@])(?=.*(gmail\.com|hotmail\.com))[\S]+$/;
-            
-            if (!emailRegex.test(this.email)) {
-                console.error("Correo electrónico no válido. Solo se permiten Gmail y Hotmail.");
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/;
+            if (!this.name || !this.lastname || !this.email || !this.password) {
                 return;
             }
+            if (!regex.test(this.password)) {
+                return;
+            }
+            try {
+                const message = await registerServices.registerUser(
+                    this.name,
+                    this.lastname,
+                    this.email,
+                    this.password,
+                )
 
-            console.log("Nombre:", this.name);
-            console.log("Apellido:", this.lastname);
-            console.log("Correo electrónico:", this.email);
+                console.log(message);
+            } catch (error) {
+                console.log(error);
+            }
         }
     },
 }
