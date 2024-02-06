@@ -24,6 +24,8 @@
 </template>
 
 <script>
+    import loginServices from "../../services/Login";
+
     export default {
         data() {
             return {
@@ -54,10 +56,16 @@
                     return;
                 }
 
-                console.log("Correo electrónico:", this.email);
-                console.log("Contraseña: ", this.password);
+                try {
+                    const message = await loginServices.loginUser(
+                        this.email,
+                        this.password,
+                    )
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
+        },
     }
 </script>
 
