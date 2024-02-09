@@ -13,9 +13,9 @@
                         <label for="" class="r-text-inter">Apellido(s)</label>
                         <b-form-input class="mb-3 r-input" type="text" v-model="lastname" required></b-form-input>
                         <label for="" class="r-text-inter">Correo electronico</label>
-                        <b-form-input class="mb-3 r-input" type="email" v-model="email" required></b-form-input>
+                        <b-form-input class="mb-3 r-input" type="email" v-model="email" required autocomplete="current-email"></b-form-input>
                         <label for="input-live" class="r-text-inter">Contraseña</label>
-                        <b-form-input class="mb-5 r-input" type="password" v-model="password" minlength="8" maxlength="15" required></b-form-input>
+                        <b-form-input class="mb-5 r-input" type="password" v-model="password" minlength="8" maxlength="15" required autocomplete="current-password"></b-form-input>
                         <div class="text-center mb-5">
                             <b-button variant="success" type="submit" class="mb-2 r-button w-50">Registrarte</b-button>
                             <p>¿Ya tienes una cuenta con nostros?<b-link :to="{ name: 'login' }"> Inicia Sesión</b-link></p>
@@ -29,7 +29,7 @@
 
 <script>
     import registerServices from "../../services/Register";
-
+    import Alerts from "../../services/Alerts";
     export default {
         data() {
             return {
@@ -57,9 +57,15 @@
                         this.email,
                         this.password,
                     )
+                    if(message.statusCode==201){
+                        Alerts.showMessageSuccess("Usuario registrado","success");
+                    }else{
+                        Alerts.showMessageSuccess("Informacion invalida","error");
+                    }
                     console.log(message);
                 } catch (error) {
                     console.log(error);
+                    Alerts.showMessageSuccess("Informacion invalida","error");
                 }
             }
         },

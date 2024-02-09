@@ -6,9 +6,9 @@
                     <b-form @submit="onLogin" v-if="show">
                         <h3 class="mt-4 mb-5 text-center">Iniciar Sesión</h3>
                         <label for="" class="r-text-inter">Correo electronico</label>
-                        <b-form-input class="mb-5 r-input" type="email" v-modal="email" required></b-form-input>
+                        <b-form-input class="mb-5 r-input" type="email" v-model="email" required autocomplete="current-email"></b-form-input>
                         <label for="" class="r-text-inter">Contraseña</label>
-                        <b-form-input class="mb-3 r-input" type="password" v-modal="password" minlength="8" maxlength="15" required></b-form-input>
+                        <b-form-input class="mb-3 r-input" type="password" v-model="password" minlength="8" maxlength="15" required autocomplete="current-password"></b-form-input>
                         <div class="text-center mb-5">
                             <b-button variant="success" type="submit" class="mb-2 r-button w-50">Entrar</b-button>
                             <p>¿Aún no tienes una cuenta?<b-link :to="{ name: 'register' }"> Registraté</b-link></p>
@@ -39,7 +39,7 @@
                 event.preventDefault();
                 const emailRegex = /^(?=.*[@])(?=.*(gmail\.com|hotmail\.com))[\S]+$/;
                 const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/;
-
+                console.log(this.email);
                 if (!this.email) {
                     console.log("El correo electrónico es obligatorio");
                     return;
@@ -51,11 +51,10 @@
                 if (!this.password) {
                     console.log("La contraseña es obligatoria");
                     return;
-                }else if (!passRegex.test(this.password)) {
+}else if (!passRegex.test(this.password)) {
                     console.error("La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un caracter especial.");
                     return;
                 }
-
                 try {
                     const message = await loginServices.loginUser(
                         this.email,

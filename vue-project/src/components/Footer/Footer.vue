@@ -76,7 +76,7 @@
 
 <script>
   export default {
-      name:"FooterPage",
+      name:"Footer",
       components:{}
   }
 </script>
