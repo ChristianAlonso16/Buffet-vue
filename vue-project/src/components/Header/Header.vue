@@ -2,7 +2,7 @@
   <b-nav class="navbar navbar-expand-lg shadow">
     <b-container fluid>
       <b-link class="navbar-brand" :to="{ name: 'home' }">
-        <img src="../../assets/img/Logo.jpg" alt="Logo" width="100"  />
+        <img src="../../assets/img/Logo.jpg" alt="Logo" width="74"  />
       </b-link>
       <b-button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
           <b-dropdown-item href="" class="d-flex align-items-center">
             Perfil
           </b-dropdown-item>
-          <b-dropdown-item href="register" class="d-flex align-items-center">
+          <b-dropdown-item href="login" class="d-flex align-items-center">
             Cerrar sesion
           </b-dropdown-item>
         </b-nav-item-dropdown>

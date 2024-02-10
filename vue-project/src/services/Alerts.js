@@ -15,8 +15,18 @@ const showMessageSuccess= async(message, status)=>{
       icon: status,
       title: message
     });
-  }
-
+}
+const loading=async()=>{
+  		Swal.fire({
+			title: "Cargando...",
+			text: 'Por favor espere...',
+			allowOutsideClick: false,
+			showConfirmButton: false,
+			willOpen: () => {
+				Swal.showLoading();
+			},
+		});
+}
 export default{
-    showMessageSuccess
+    showMessageSuccess,loading
 }

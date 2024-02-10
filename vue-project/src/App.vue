@@ -2,7 +2,7 @@
   <div id="app">
     <b-container fluid>
       <b-row class="row">
-        <Header v-if="!rol" />
+        <Header v-if="rol" />
       </b-row>
       <div class="d-flex flex-column text-center">
         <b-col class="col">
@@ -12,7 +12,7 @@
         </b-col>
         <b-col class="col-12">
           <b-container fluid>
-            <Footer v-if="!rol" />
+            <Footer v-if="rol" />
           </b-container>
         </b-col>
       </div>

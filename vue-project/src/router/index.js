@@ -22,15 +22,15 @@ const routes = [
                 return {...route}
             }),
             ...adminRouter.map(route => {
-                route.meta.requireAuth = true
+                route.meta.requireAuth = false
                 return {...route}
             }),
             ...clientRouter.map(route => {
-              route.meta.requireAuth = true
+              route.meta.requireAuth = false
               return {...route}
           }),
           ...workerRouter.map(route => {
-            route.meta.requireAuth = true
+            route.meta.requireAuth = false
             return {...route}
         })
         ]

@@ -1,4 +1,4 @@
-import Category from "../modules/Admin/views/Category/list_category.vue"
+import Category from "../modules/Admin/views/Category/Category.vue"
 export default [
     {
         path: 'categorias',
