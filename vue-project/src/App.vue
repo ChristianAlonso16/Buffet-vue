@@ -6,7 +6,7 @@
       </b-row>
       <div class="d-flex flex-column text-center">
         <b-col class="col">
-          <div class="container mt-5">
+          <div class="container">
             <router-view />
           </div>
         </b-col>
@@ -26,7 +26,7 @@ import Header from './components/Header/Header.vue';
 export default {
   data() {
     return {
-      rol: false
+      rol: true
     }
   }, components: {
     Footer, Header

@@ -1,5 +1,5 @@
 <template>
-    <b-container class="w-75">
+    <b-container class="w-75 mt-5">
         <b-row class="border border-1 rounded-4 r-container">
             <b-col class="text-start p-5">
                 <b-container>

@@ -1,5 +1,5 @@
 <template>
-    <b-container class="w-75">
+    <b-container class="w-75 mt-5">
         <b-row class="border border-1 rounded-4 r-container">
             <b-col cols="6" class="p-0 d-none d-lg-block col-md-5 col-lg-5 col-xl-5">
                 <b-img class="r-image rounded-start-4 w-100 h-100" src="https://weezevent.com/wp-content/uploads/2023/08/30164935/organizar-un-banquete.jpg" alt="imagen-registro"></b-img>

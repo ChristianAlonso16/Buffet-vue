@@ -5,7 +5,7 @@
     </b-row>
     <div class="d-flex flex-column text-center">
       <b-col class="col">
-        <div class="container mt-5">
+        <div class="container">
           <router-view></router-view>
         </div>
       </b-col>

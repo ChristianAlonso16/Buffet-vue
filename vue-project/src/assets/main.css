@@ -1,29 +1,96 @@
 .r-container {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .r-image {
-    object-fit: cover;
+  object-fit: cover;
 }
 
 .r-input {
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    border-color: #ED8003;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  border-color: #ed8003;
 }
 
 .r-button {
-    background-color: #ED8003;
-    border-color: #ED8003;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #ed8003;
+  border-color: #ed8003;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .r-text-inter {
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    color: #000;
-    line-height: normal;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  color: #000;
+  line-height: normal;
+}
+.lp-image {
+  background-image: url("https://www.twinlionsjalisco.com/wp/wp-content/uploads/elementor/thumbs/tl_buffet_pagina-p9g6uuuxv3llhmjmj5gcn9fz3c288xqktzd71221tk.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3em;
+  position: relative;
+  border-radius: 0 0 10px 10px;
+}
+.lp-tittle {
+  bottom: 60%;
+  position: absolute;
+  color: #fff;
+  font-size: 1.5em;
+}
+.lp-subtitle {
+  color: #ed8003;
+  font-weight: bold;
+}
+.lp-line {
+  background-color: #ed8003;
+  height: 1%;
+  width: 100%;
+}
+.lp-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.c-container {
+  position: relative;
+}
+
+.c-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.c-container:hover .c-overlay {
+  opacity: 1;
+}
+.c-image-container {
+  max-height: 230px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.c-image {
+  width: 100%;
+  height: auto;
+  display: block;
 }
