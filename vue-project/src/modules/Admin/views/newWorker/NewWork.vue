@@ -61,7 +61,7 @@ export default {
             event.preventDefault()
             const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/;
 
-            if(!this.name || !this.lastname || !this.email || !this.password){
+            if(!this.name || !this.lastname || !this.email || !this.password || !this.phone){
                 return;
             }
             if(!regex.test(this.password)){
@@ -69,10 +69,13 @@ export default {
             }
 
             try{
-                const message = await addWorker(this.email, this.password, this.name, this.lastname)
+                const message = await addWorker(this.email, this.password, this.name, this.lastname,this.phone)
 
                 if(message.statusCode==201){
+                    this.$router.push('/admin/trabajadores');
+
                     return Alerts.showMessageSuccess("Personal de trabajo registrado correctamente", "success");
+                    
                 }
                 return Alerts.showMessageSuccess("Información inválida pero no es interna", "error")
             }catch(error){
