@@ -47,7 +47,7 @@ export default [
                 }
             },
             {
-                path: 'nuevoTrabajador',
+                path: '/admin/nuevoTrabajador',
                 name: 'nuevoTrabajador',
                 component: NewWorker,
                 meta:{
