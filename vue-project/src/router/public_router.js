@@ -3,27 +3,38 @@ import Login from "../views/Login/Login.vue";
 import Register from "../views/Register/Register.vue"
 export default [
     {
-        path: 'home',
-        name: 'home',
-        component: LandPage,
-        meta:{
-            title: 'Home'
-        }
+        path: '',
+        name: '',
+        component: ()=> import("../layouts/PublicLayout.vue"),
+        meta: {
+            title:'Public'
+        },
+        children:[
+            {
+                path: '/home',
+                name: 'home',
+                component: LandPage,
+                meta:{
+                    title: 'Inicio'
+                }
+            },
+            {
+                path: '/login',
+                name: 'login',
+                component: Login,
+                meta:{
+                    title: 'Iniciar sesión'
+                }
+            },
+            {
+                path: "/register",
+                name: "register",
+                component:Register,
+                meta:{
+                    title:'Registrar cuenta'
+                }
+            },
+        ]
     },
-    {
-        path: 'login',
-        name: 'login',
-        component: Login,
-        meta:{
-            title: 'Iniciar sesión'
-        }
-    },
-    {
-        path: "register",
-        name: "register",
-        component:Register,
-        meta:{
-            title:'Registrar cuenta'
-        }
-    },
+   
 ]

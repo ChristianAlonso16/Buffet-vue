@@ -1,12 +1,12 @@
 <template>
-  <div class="pt-4">
+  <div class="pt-4 text-center">
     <div class="linea_punto"></div>
     <h4 class="open_sans">
       Categorias
     </h4>
     <div class="row mb-3">
       <div class="d-md-flex justify-content-md-end">
-        <b-button @click="openModal" class="mb-2 r-button">Agregar Categoría</b-button>
+        <b-button @click="openModal" class="mb-4 Addbutton">Agregar Categoría</b-button>
       </div>
     </div>
     <div class="row">
@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import Categories from '../../../../services/Categories';
-import Alerts from '../../../../services/Alerts';
+import Categories from '../../../../../services/Categories';
+import Alerts from '../../../../../services/Alerts';
 
 export default {
   name: "Table",
@@ -133,7 +133,7 @@ export default {
   max-width: 290px;
   width: 100%;
   height: 2px;
-  background-color: #ED8003;
+  background-color: #404e67;
   position: relative;
 }
 
@@ -142,7 +142,7 @@ export default {
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #ED8003;
+  background-color: #404e67;
   border: 8px solid #fff;
   left: 50%;
   top: -10px;
@@ -155,5 +155,10 @@ export default {
   border-radius: 50%;
   background-clip: padding-box;
   box-sizing: content-box;
+}
+.Addbutton{
+  background-color: #404e67;
+  border-color: #404e67;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>

@@ -18,9 +18,9 @@ const routes = [
         },
         children:[
             ...publicRoutes.map(route => {
-                route.meta.requireAuth = false
-                return {...route}
-            }),
+                route.meta.requireAuth = false;
+                return { ...route };
+              }),
             ...adminRouter.map(route => {
                 route.meta.requireAuth = false
                 return {...route}
@@ -39,7 +39,8 @@ const routes = [
         path: '/*',
         name: '404',
         component: ()=> import('../views/ErrorPage/Error404.vue')
-    }
+    },
+    
 ]
 
 const router = new VueRouter({

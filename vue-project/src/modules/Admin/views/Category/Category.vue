@@ -1,11 +1,11 @@
 <template lang="">
         <b-container>
-            <Table/> 
+            <Cards/> 
         </b-container>
        
 </template>
 <script>
-import Table from '../../components/list_category/Table.vue';
+import Cards from '../../components/category/list_category/Cards.vue';
 export default {
     data() {
     return {
@@ -13,7 +13,7 @@ export default {
     }
   }, 
     components:{
-        Table
+      Cards
     }
 }
 </script>

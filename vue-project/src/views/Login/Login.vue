@@ -60,6 +60,8 @@
                         this.email,
                         this.password,
                     )
+                    this.$store.commit('setRole', "Public");
+
                 } catch (error) {
                     console.log(error);
                 }
