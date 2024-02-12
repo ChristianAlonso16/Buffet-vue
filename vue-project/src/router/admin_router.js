@@ -2,6 +2,8 @@ import Category from "../modules/Admin/views/Category/Category.vue"
 import Dasboard from "../modules/Admin/views/Dashboard/Dashboard.vue"
 import Clients from "../modules/Admin/views/Clients/Clients.vue"
 import Workers from "../modules/Admin/views/Workers/Workers.vue"
+import NewWorker from "../modules/Admin/views/newWorker/NewWork.vue"
+
 export default [
     {
         path: '/admin',
@@ -42,6 +44,14 @@ export default [
                 component: Workers,
                 meta:{
                     title:'Trabajadores'
+                }
+            },
+            {
+                path: 'nuevoTrabajador',
+                name: 'nuevoTrabajador',
+                component: NewWorker,
+                meta:{
+                    title: 'nuevoTrabajador'
                 }
             }
         ]
