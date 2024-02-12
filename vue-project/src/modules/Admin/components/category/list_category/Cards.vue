@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-4 text-center">
+  <div class="mt-5 text-center">
     <div class="linea_punto"></div>
     <h4 class="open_sans">
       Categorias
