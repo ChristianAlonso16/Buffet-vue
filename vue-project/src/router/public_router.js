@@ -1,6 +1,7 @@
 import LandPage from "../views/Landpage/LandPage.vue";
 import Login from "../views/Login/Login.vue";
-import Register from "../views/Register/Register.vue"
+import Register from "../views/Register/Register.vue";
+import RecoverPass from "../views/RecoverPass/RecoverPass.vue";
 export default [
     {
         path: '',
@@ -32,6 +33,14 @@ export default [
                 component:Register,
                 meta:{
                     title:'Registrar cuenta'
+                }
+            },
+            {
+                path: "/recoverpass",
+                name: "recoverpass",
+                component:RecoverPass,
+                meta:{
+                    title:'Recuperar Contraseña'
                 }
             },
         ]
