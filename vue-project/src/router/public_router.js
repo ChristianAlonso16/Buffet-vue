@@ -3,7 +3,8 @@ import Login from "../views/Login/Login.vue";
 import Register from "../views/Register/Register.vue"
 export default [
     {
-        path: '',
+        path: '/',
+        redirect:'/home',
         name: '',
         component: ()=> import("../layouts/PublicLayout.vue"),
         meta: {

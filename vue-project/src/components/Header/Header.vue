@@ -16,58 +16,6 @@
         <b-nav-item to="home">Eventos</b-nav-item>
       </b-navbar-nav>
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
-          <!-- <b-nav-item-dropdown right no-caret>
-            <template #button-content>
-              <a class="nav-link dropdown-toggle" to="home" role="button" aria-expanded="false">
-                Inicio
-              </a>          
-            </template>
-
-            <!-- <template #button-content>
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Transporte
-              </a>          
-            </template>
-            <b-dropdown-item href="#">Urban</b-dropdown-item>
-            <b-dropdown-item href="#">Auto</b-dropdown-item> -->
-          <!-- </b-nav-item-dropdown>
-          <b-nav-item-dropdown right no-caret>
-            <template #button-content>
-              <a class="nav-link dropdown-toggle" to="hpme" role="button" aria-expanded="false">
-                Comida
-              </a>          
-            </template> -->
-            <!-- <template #button-content>
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Comida
-              </a>          
-            </template>
-            <b-dropdown-item href="#">Fiesta infantil</b-dropdown-item>
-            <b-dropdown-item href="#">Graduacion</b-dropdown-item>
-            <b-dropdown-item href="#">Boda</b-dropdown-item> -->
-          <!-- </b-nav-item-dropdown>
-          <b-nav-item-dropdown right no-caret>
-            <template #button-content>
-              <a class="nav-link dropdown-toggle" to="hpme" role="button" aria-expanded="false">
-                Utileria
-              </a>          
-            </template> -->
-            <!-- <template #button-content>
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Utileria
-              </a>          
-            </template>
-            <b-dropdown-item href="#">Mesas</b-dropdown-item>
-            <b-dropdown-item href="#">Sillas</b-dropdown-item>
-            <b-dropdown-item href="#">Renta de sonido</b-dropdown-item>-->
-          <!-- </b-nav-item-dropdown> 
-          <b-nav-item-dropdown right no-caret>
-            <template #button-content>
-              <a class="nav-link dropdown-toggle" to="hpme" role="button" aria-expanded="false">
-                Eventos
-              </a>          
-            </template>
-          </b-nav-item-dropdown>  -->
         </ul>
         <b-nav-item-dropdown right no-caret>
           <template #button-content>

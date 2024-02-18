@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div>
       <b-container fluid>
         <b-row class="row">
           <Header v-if="rol" />
