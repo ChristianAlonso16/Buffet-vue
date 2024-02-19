@@ -3,15 +3,11 @@
     <router-link :to="to">
       <div class="c-container">
         <div class="c-image-container">
-          <b-img
-            :src="imageUrl"
-            alt="Imagen de paquete"
-            class="c-image"
-            fluid
-          ></b-img>
+          <img :src="image" alt="Imagen de paquete" class="c-image" />
         </div>
         <div class="c-overlay">
-          <p class="lp-subtitle">{{ name }}</p>
+          <p
+           class="lp-subtitle fw-bold c-title">{{ name }}</p>
         </div>
       </div>
     </router-link>
@@ -21,7 +17,7 @@
 <script>
 export default {
   props: {
-    imageUrl: {
+    image: {
       type: String,
       required: true,
     },
@@ -38,4 +34,5 @@ export default {
 </script>
   
 <style>
+
 </style>
