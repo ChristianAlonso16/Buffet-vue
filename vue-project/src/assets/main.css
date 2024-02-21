@@ -34,7 +34,7 @@
 }
 
 .lp-image {
-  background-image: url("https://www.twinlionsjalisco.com/wp/wp-content/uploads/elementor/thumbs/tl_buffet_pagina-p9g6uuuxv3llhmjmj5gcn9fz3c288xqktzd71221tk.jpg");
+  background-image: url("../assets/img/overlay.jpg");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -44,7 +44,22 @@
   color: white;
   font-size: 3em;
   position: relative;
-  border-radius: 0 0 10px 10px;
+}
+.lp-img-container {
+  height: 100%;
+  width: 100%;
+}
+.lp-image-quality {
+  background-image: url("../assets/img/quality-img.jpg");
+  border-radius: 10px;
+  height: 100%;
+  min-height: 250px;
+}
+.lp-image-personalization {
+  background-image: url("../assets/img/personalization-img.jpg");
+  border-radius: 10px;
+  height: 100%;
+  min-height: 250px;
 }
 
 .lp-tittle {
@@ -56,12 +71,12 @@
 
 .lp-subtitle {
   color: #ed8003;
-  font-weight: bold;
 }
 
 .lp-line {
-  background-color: #ed8003;
-  height: 1%;
+  display: inline-block;
+  border: none;
+  border-top: 4px solid #ed8003;
   width: 100%;
 }
 
@@ -88,6 +103,12 @@
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.c-title {
+  max-width: 90%;
+  overflow: hidden;
 }
 
 .c-container:hover .c-overlay {
@@ -147,4 +168,25 @@
 .hc-text-description {
   font-family: Inter;
   font-size: 16px;
+}
+@media screen and (max-width: 1400px) {
+  .c-image-container {
+    max-height: 190px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .c-image-container {
+    max-height: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .c-image-container {
+    max-height: 230px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .c-image-container {
+    max-height: 230px;
+  }
 }

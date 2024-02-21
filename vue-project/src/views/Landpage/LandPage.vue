@@ -6,7 +6,7 @@
         <h1 class="fw-bold lp-tittle">Buffet</h1>
       </div>
       <b-row class="mt-5">
-        <h1 class="lp-subtitle">Paquetes</h1>
+        <h1 class="lp-subtitle fw-bold">Paquetes</h1>
       </b-row>
 
       <b-row class="mt-5">
@@ -18,76 +18,66 @@
           md="4"
           class="mb-5"
         >
-          <Card :imageUrl="pkg.imageUrl" :name="pkg.name" :to="pkg.to" />
+          <Card :image="pkg.image" :name="pkg.packageName" :to="pkg.to" />
         </b-col>
       </b-row>
-      <b-row class="mt-5">
-        <b-col cols="12" sm="6" md="6" class="mb-5"
-          ><h1 class="mt-5">Calidad</h1>
-          <div class="lp-line"></div>
-          <p class="m-5">
-            Nos destacamos en la creación de eventos, donde cada
-            detalle se adapta a sus necesidades y supera sus expectativas.
-            Cumplimos con sus deseos en cada aspecto.
-          </p>
+
+      <b-row class="m-1 mb-5" v-if="showMore">
+        <b-button block class="r-button" to="/paquetes">Ver más</b-button>
+      </b-row>
+
+      <b-row>
+        <b-col cols="12" sm="12" md="6" class="mb-5">
+          <b-card>
+            <h1 class="mt-4 mb-4">Calidad</h1>
+            <span class="lp-line"></span>
+            <p class="m-5 text-start">
+              Nos destacamos en la creación de eventos, donde cada detalle se
+              adapta a sus necesidades y supera sus expectativas. Cumplimos con
+              sus deseos en cada aspecto.
+            </p>
+          </b-card>
         </b-col>
-        <b-col cols="12" sm="6" md="6" style="background-image: url('https://www.orderyoyo.com/wp-content/uploads/2023/10/Buffet-Table-Plates-Olives.png');">
+        <b-col cols="12" sm="12" md="6" class="mb-5">
+          <b-card class="lp-img-container">
+            <div class="lp-image-quality"></div>
+          </b-card>
         </b-col>
       </b-row>
 
       <b-row>
-        <b-col
-          cols="12" sm="6" md="6" style="background-image: url('https://www.mashed.com/img/gallery/the-best-all-you-can-eat-buffets-in-every-state/intro-1682967790.jpg');">
+        <b-col cols="12" sm="12" md="6" class="mb-5">
+          <b-card class="lp-img-container">
+            <div class="lp-image-personalization"></div>
+          </b-card>
         </b-col>
-        <b-col cols="12" sm="6" md="6" class="mb-5"
-          ><h1 class="mt-5">Personalización</h1>
-          <div class="lp-line"></div>
-          <p class="m-5">
-            Realizamos un paquetes con todos los servicios y amenidades
-            incluidas de acuerdo a tus gustos y necesidades
-          </p>
+        <b-col cols="12" sm="12" md="6" class="mb-5">
+          <b-card>
+            <h1 class="mt-4 mb-4">Personalización</h1>
+            <span class="lp-line"></span>
+            <p class="m-5 text-start">
+              Realizamos un paquetes con todos los servicios y amenidades
+              incluidas de acuerdo a tus gustos y necesidades.
+            </p>
+          </b-card>
         </b-col>
       </b-row>
 
       <b-row class="mt-5">
-        <h1 class="lp-subtitle">Nuestros eventos</h1>
+        <h1 class="lp-subtitle fw-bold">Nuestros eventos</h1>
       </b-row>
       <b-row class="mt-5">
-        <b-col cols="12" sm="6" md="3" class="mb-5">
+        <b-col
+          v-for="(event, index) in eventImages"
+          :key="index"
+          cols="12"
+          sm="6"
+          md="3"
+          class="mb-5"
+        >
           <div>
-            <b-img
-              src="https://dosarroyos.mx/wp-content/uploads/2022/06/Cena-dos-arroyos-1024x683.jpg"
-              fluid
-              rounded
-              alt="Nuestros-eventos-1"
-            ></b-img>
+            <b-img :src="event.image" fluid rounded :alt="event.alt"></b-img>
           </div>
-        </b-col>
-        <b-col cols="12" sm="6" md="3" class="mb-5">
-          <b-img
-            src="https://cdn0.bodas.com.mx/vendor/1010/3_2/960/jpg/56510889-2329217620646604-2112741657542656000-o_5_161010-1565402685.jpeg"
-            fluid
-            rounded
-            alt="Nuestros-eventos-2"
-          ></b-img>
-        </b-col>
-        <b-col cols="12" sm="6" md="3" class="mb-5">
-          <div>
-            <b-img
-              src="https://img77.uenicdn.com/image/upload/v1523890123/service_images/adobestock_120658057.jpg"
-              fluid
-              rounded
-              alt="Nuestros-eventos-3"
-            ></b-img>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="6" md="3" class="mb-5">
-          <b-img
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbAoJluL8HJNZxlIp6WYcdjzHO3C7EWH0c3qaiHpXBuJRbe-SYbcjM8VO6JkGgjZnIm2rHeDo8nvz1HbOmiL8mQd0wU3QsEDlFWXghJBer05Ib61smP4CoVCrZ8wGUh6wFKDP93w1u7c4/s1600/bufet.jpg"
-            fluid
-            rounded
-            alt="Nuestros-eventos-4"
-          ></b-img>
         </b-col>
       </b-row>
     </b-container>
@@ -95,55 +85,70 @@
 </template>
 
 <script>
-import Card from "../../components/Card/Card.vue";
+import packageService from "../../services/Packages";
+import Card from "../../modules/Client/components/Card/Card.vue";
+import event1 from "../../assets/img/our-events-1.jpg";
+import event2 from "../../assets/img/our-events-2.jpeg";
+import event3 from "../../assets/img/our-events-3.jpg";
+import event4 from "../../assets/img/our-events-4.jpeg";
+
 export default {
   components: {
     Card,
   },
   data() {
     return {
-      packageList: [
+      showMore: false,
+      eventImages: [
         {
-          imageUrl:
-            "https://imgmedia.larepublica.pe/640x371/larepublica/migration/images/737LPQXOCNDAHMGNKZZAGOTGZQ.webp",
-          name: "Nombre paquete",
-          to: "/*",
-          moreInfo: "/*",
+          image: event1,
+          alt: "Nuestros-eventos-1",
         },
         {
-          imageUrl:
-            "https://i.blogs.es/6134cf/pexels-israel-franca-2264036/450_1000.jpeg",
-          name: "Nombre paquete",
-          to: "/*",
+          image: event2,
+          alt: "Nuestros-eventos-2",
         },
         {
-          imageUrl:
-            "https://www.descubremadrid.com/wp-content/uploads/buffet-libre-madrid-scaled.jpg",
-          name: "Nombre paquete",
-          to: "/*",
+          image: event3,
+          alt: "Nuestros-eventos-3",
         },
         {
-          imageUrl:
-            "https://www.poblanerias.com/wp-content/archivos/2024/01/desayunos-buffet-1021x580.jpg",
-          name: "Nombre paquete",
-          to: "/*",
-        },
-        {
-          imageUrl:
-            "https://i0.wp.com/coolbites.mx/wp-content/uploads/2019/02/Buffets-de-sushi-en-la-Ciudad-de-Me%CC%81xico.png?fit=1140%2C854&ssl=1",
-          name: "Nombre paquete",
-          to: "/*",
-        },
-        {
-          imageUrl:
-            "https://imgmedia.larepublica.pe/640x371/larepublica/migration/images/737LPQXOCNDAHMGNKZZAGOTGZQ.webp",
-          name: "Nombre paquete",
-          to: "/*",
+          image: event4,
+          alt: "Nuestros-eventos-4",
         },
       ],
+      packageList: [],
     };
+  },
+  mounted() {
+    this.getPackages();
+  },
+  methods: {
+    async getPackages() {
+      try {
+        const data = await packageService.getPackages();
+        if (data.statusCode === 200) {
+          if (data.data.length > 6) {
+            this.showMore = true;
+          }
+          this.packageList = data.data
+            .map((packages) => ({
+              packageName: packages.packageName,
+              image: packages.image,
+              packageDescription: packages.packageDescription,
+              price: packages.price,
+              discount: packages.discount,
+              to: "/paquete/" + packages.id.toString(),
+            }))
+            .slice(0, 6);
+        }
+      } catch (error) {
+        Alerts.showMessageSuccess("Error al traer los paquetes", "error");
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+</style>
