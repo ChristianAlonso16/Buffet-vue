@@ -10,8 +10,12 @@
                         <h3 class="mt-4 mb-5 text-center">Registro</h3>
                         <label for="" class="r-text-inter" >Nombre(s)</label>
                         <b-form-input class="mb-3 r-input" type="text" v-model="name" required></b-form-input>
-                        <label for="" class="r-text-inter">Apellido(s)</label>
+                        <label for="" class="r-text-inter">Apellido paterno</label>
                         <b-form-input class="mb-3 r-input" type="text" v-model="lastname" required></b-form-input>
+                        <label for="" class="r-text-inter">Apellido materno</label>
+                        <b-form-input class="mb-3 r-input" type="text" v-model="surname" required></b-form-input>
+                        <label for="" class="r-text-inter">Telefono</label>
+                        <b-form-input class="mb-3 r-input" type="number" v-model="phone" required></b-form-input>
                         <label for="" class="r-text-inter">Correo electronico</label>
                         <b-form-input class="mb-3 r-input" type="email" v-model="email" required autocomplete="current-email"></b-form-input>
                         <label for="input-live" class="r-text-inter">Contraseña</label>
@@ -36,6 +40,8 @@
                 show: true,
                 name: null,
                 lastname: null,
+                surname:null,
+                phone:0,
                 email: null,
                 password: null,
             }
@@ -44,7 +50,7 @@
             async onRegister(event) {
                 event.preventDefault();
                 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/;
-                if (!this.name || !this.lastname || !this.email || !this.password) {
+                if (!this.name || !this.lastname|| !this.phone || !this.surname || !this.email || !this.password) {
                     return;
                 }
                 if (!regex.test(this.password)) {
@@ -54,11 +60,15 @@
                     const message = await registerServices.registerUser(
                         this.name,
                         this.lastname,
+                        this.surname,
+                        this.phone,
                         this.email,
                         this.password,
                     )
                     if(message.statusCode==201){
                         Alerts.showMessageSuccess("Usuario registrado","success");
+                        this.$router.back(-1);
+
                     }else{
                         Alerts.showMessageSuccess("Informacion invalida","error");
                     }
