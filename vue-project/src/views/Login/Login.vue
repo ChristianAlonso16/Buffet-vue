@@ -12,7 +12,7 @@
                         <div class="text-center mb-5">
                             <b-button variant="success" type="submit" class="mb-2 r-button w-50">Entrar</b-button>
                             <p>¿Aún no tienes una cuenta?<b-link :to="{ name: 'register' }"> Registraté</b-link></p>
-                            <p>¿Olvidaste tu contraseña?<b-link :to="{ name: 'recoverpass' }"> Recupérala</b-link></p>
+                            <p>¿Olvidaste tu contraseña?<b-link :to="{ name: 'recuperar' }"> Recupérala</b-link></p>
                         </div>
                     </b-form>
                 </b-container>

@@ -37,8 +37,8 @@ export default [
                 }
             },
             {
-                path: "/recoverpass",
-                name: "recoverpass",
+                path: "/recuperar",
+                name: "recuperar",
                 component:RecoverPass,
                 meta:{
                     title:'Recuperar Contraseña'
