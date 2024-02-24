@@ -2,13 +2,13 @@
     <div class="mt-5 text-center">
         <div class="linea_punto"></div>
         <h4 class="open_sans">
-            Gestion de trabajadores
+            Gestión de trabajadores
         </h4>
         <div class="row mb-3">
-      <div class="d-md-flex justify-content-md-end">
-        <b-button to="/admin/nuevoTrabajador" class="mb-4 Addbutton">Agregar trabajador</b-button>
-      </div>
-    </div>
+            <div class="d-md-flex justify-content-md-end">
+                <addWorkerModal @update-users="getWorkers" />
+            </div>
+        </div>
         <div class="mt-5 row">
             <div v-if="items.length === 0" class="col-12 text-center">
                 <p>No hay registros disponibles.</p>
@@ -26,13 +26,13 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import AdminServices from '../../../../../services/AdminService';
 import Alerts from '../../../../../services/Alerts';
+import addWorkerModal from './addWorkerModal.vue';
 
 export default {
-
     data() {
         return {
             items: [],
@@ -40,11 +40,9 @@ export default {
                 { key: "email", label: "Correo", sortable: false },
                 { key: "fkUserInfo.name", label: "Nombre", sortable: false },
                 { key: "fkUserInfo.lastname", label: "Apellido", sortable: false },
-                { key: "fkUserInfo.phone", label: "Telefono", sortable: false },
+                { key: "fkUserInfo.phone", label: "Teléfono", sortable: false },
                 { key: "fkUserInfo.createdAt", label: "Fecha de registro", sortable: false },
-                { key: "fkStatus.status", label: "Status", sortable: false },
-
-
+                { key: "fkStatus.status", label: "Estado", sortable: false },
             ]
         };
     },
@@ -58,15 +56,16 @@ export default {
             try {
                 const data = await AdminServices.getWorkers();
                 if (data.statusCode === 200) {
-                    console.log(data.data);
                     this.items = [...data.data]
                 }
-
             } catch (error) {
                 Alerts.showMessageSuccess("Error al traer trabajadores", "error");
             }
-        },
+        }
     },
+    components: {
+        addWorkerModal
+    }
 };
 </script>
   
@@ -106,11 +105,4 @@ export default {
     background-clip: padding-box;
     box-sizing: content-box;
 }
-
-.Addbutton {
-    background-color: #404e67;
-    border-color: #404e67;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
 </style>
-  
