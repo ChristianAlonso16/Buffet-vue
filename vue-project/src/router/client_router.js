@@ -1,6 +1,7 @@
 import Historial from "../modules/Client/views/History/history_orders.vue";
 import Paquetes from "../modules/Client/views/Packages/packages.vue";
 import Paque from "../modules/Client/views/Packet/packet.vue";
+import HistorialId from "../modules/Client/views/Follow-up/FollowUp.vue"
 export default [
   {
     path: "",
@@ -33,6 +34,14 @@ export default [
         meta: {
           title: "Paquete",
         },
+      },
+      {
+        path: "/seguimiento/:id",
+        name: "seguimiento",
+        component: HistorialId,
+        meta: {
+          title: "Seguimiento"
+        }
       },
     ],
   },
