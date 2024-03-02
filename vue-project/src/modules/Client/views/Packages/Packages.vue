@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import Alerts from '../../../../services/Alerts';
 import packageService from "../../../../services/Packages";
 import Card from "../../components/Card/Card.vue";
 export default {

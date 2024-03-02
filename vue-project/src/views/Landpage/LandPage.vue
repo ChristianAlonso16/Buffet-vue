@@ -11,8 +11,8 @@
 
       <b-row class="mt-5">
         <b-col
-          v-for="(pkg, index) in packageList"
-          :key="index"
+          v-for="(pkg, id) in packageList"
+          :key="id"
           cols="12"
           sm="12"
           md="4"
@@ -91,6 +91,7 @@ import event1 from "../../assets/img/our-events-1.jpg";
 import event2 from "../../assets/img/our-events-2.jpeg";
 import event3 from "../../assets/img/our-events-3.jpg";
 import event4 from "../../assets/img/our-events-4.jpeg";
+import Alerts from '../../services/Alerts';
 
 export default {
   components: {
