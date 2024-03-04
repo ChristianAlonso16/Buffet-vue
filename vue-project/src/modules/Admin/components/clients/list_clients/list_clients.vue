@@ -15,13 +15,27 @@
                             :class="{ 'badge text-bg-success': data.value === 'enable', 'badge text-bg-danger': data.value !== 'enable' }">
                             {{ data.value === 'enable' ? 'Activo' : 'Inactivo' }}
                         </td>
+                        <td>
+                        </td>
+                    </template>
+
+                    <template v-slot:cell(actions)="data">
+                        <td>
+
+                            <button @click="updateStatus(data.item.email, data.item.fkStatus.status)"
+                                class="btn Updatebutton ms-5">
+                                <b-icon icon="arrow-repeat" color="black" />
+
+                                {{ data.item.fkStatus.status === 'enable' ? 'Desabilitar' : 'Habilitar' }}
+                            </button>
+                        </td>
                     </template>
                 </b-table>
             </div>
         </div>
     </div>
 </template>
-  
+
 <script>
 import AdminServices from '../../../../../services/AdminService';
 import Alerts from '../../../../../services/Alerts';
@@ -38,8 +52,7 @@ export default {
                 { key: "fkUserInfo.phone", label: "Telefono", sortable: false },
                 { key: "fkUserInfo.createdAt", label: "Fecha de registro", sortable: false },
                 { key: "fkStatus.status", label: "Status", sortable: false },
-
-
+                { key: 'actions', label: 'Acciones', sortable: false }
             ]
         };
     },
@@ -49,6 +62,21 @@ export default {
     },
 
     methods: {
+        async updateStatus(email, currentStatus) {
+            try {
+                let status = currentStatus == 'enable' ? 'disabled' : 'enable';
+                const data = await AdminServices.updateStatus(email, status);
+                if (data.statusCode === 200) {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Actualizado", "success");
+                    this.getClients();
+                } else {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Error", "error");
+
+                }
+            } catch (error) {
+
+            }
+        },
         async getClients() {
             try {
                 const data = await AdminServices.getClients();
@@ -64,9 +92,8 @@ export default {
     },
 };
 </script>
-  
-<style scoped>
 
+<style scoped>
 .open_sans {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -102,10 +129,10 @@ export default {
     box-sizing: content-box;
 }
 
-.Addbutton {
-    background-color: #404e67;
-    border-color: #404e67;
+.Updatebutton {
+    background-color: #a3a5aa;
+    border-color: #a3a5aa;
+    color: white;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>
-  
