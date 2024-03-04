@@ -21,6 +21,17 @@
                             {{ data.value === 'enable' ? 'Activo' : 'Inactivo' }}
                         </td>
                     </template>
+                    <template v-slot:cell(actions)="data">
+                        <td>
+
+                            <button @click="updateStatus(data.item.email, data.item.fkStatus.status)"
+                                class="btn Updatebutton ms-5">
+                                <b-icon icon="arrow-repeat" color="black" />
+
+                                {{ data.item.fkStatus.status === 'enable' ? 'Desabilitar' : 'Habilitar' }}
+                            </button>
+                        </td>
+                    </template>
                 </b-table>
             </div>
         </div>
@@ -43,6 +54,8 @@ export default {
                 { key: "fkUserInfo.phone", label: "Teléfono", sortable: false },
                 { key: "fkUserInfo.createdAt", label: "Fecha de registro", sortable: false },
                 { key: "fkStatus.status", label: "Estado", sortable: false },
+                { key: 'actions', label: 'Acciones', sortable: false }
+
             ]
         };
     },
@@ -52,6 +65,21 @@ export default {
     },
 
     methods: {
+        async updateStatus(email, currentStatus) {
+            try {
+                let status = currentStatus == 'enable' ? 'disabled' : 'enable';
+                const data = await AdminServices.updateStatus(email, status);
+                if (data.statusCode === 200) {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Actualizado", "success");
+                    this.getWorkers();
+                } else {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Error", "error");
+
+                }
+            } catch (error) {
+
+            }
+        },
         async getWorkers() {
             try {
                 const data = await AdminServices.getWorkers();
@@ -104,5 +132,11 @@ export default {
     border-radius: 50%;
     background-clip: padding-box;
     box-sizing: content-box;
+}
+.Updatebutton {
+    background-color: #a3a5aa;
+    border-color: #a3a5aa;
+    color: white;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>

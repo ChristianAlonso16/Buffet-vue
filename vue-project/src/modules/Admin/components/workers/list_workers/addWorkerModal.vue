@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button @click="$bvModal.show('workerModal')" class="r-button">Agregar trabajador</b-button>
+        <b-button @click="$bvModal.show('workerModal')" class="buttonAdd">Agregar trabajador</b-button>
         <b-modal id="workerModal" title="Agregar trabajador" hide-footer>
             <template #modal-header="{ close }">    
                 <h5>Registrar Trabajador</h5>
@@ -85,7 +85,7 @@
                     </b-col>
                 </b-row>
                 <b-row align-h="center">
-                    <b-button class="w-50 r-button" type="submit">Registrar</b-button>
+                    <b-button class="w-50 buttonAdd" type="submit">Registrar</b-button>
                 </b-row>
             </b-form>
         </b-modal>
@@ -148,6 +148,11 @@ export default {
     cursor: pointer;
     font-size: large;
     font-weight: bold;
-    color: #ed8003;
+    color: #404e67;
+}
+.buttonAdd {
+    background-color: #404e67;
+  border-color: #404e67;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 </style>
