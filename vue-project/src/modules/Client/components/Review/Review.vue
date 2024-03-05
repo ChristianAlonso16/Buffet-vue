@@ -3,54 +3,87 @@
     <div class="mt-1">
       <div class="d-flex justify-content-start text-start">
         <b-row>
-          <b-col md="2">
+          <b-col lg="2" md="2" sm="2" xs="2" class="mb-2">
             <div class="user-pic">
-              <b-avatar></b-avatar></div
-          ></b-col>
+              <b-avatar size="50"></b-avatar>
+            </div>
+          </b-col>
 
-          <b-col
-            ><div>
-              <p class="fw-semibold">Martes 27, Febrero a las 11:28am</p>
-              <div class="rating">
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-              </div>
+          <b-col>
+            <p class="fw-semibold">{{ date }}</p>
+            <div class="rating">
+              <span
+                v-for="id in 5"
+                :key="id"
+                class="star"
+                :class="{ 'disabled-star': id > review.point }"
+                >&#9733;</span
+              >
             </div>
           </b-col>
         </b-row>
       </div>
 
       <p class="p-justify-text mt-1">
-        I've been using this product for a few days now and I'm really
-        impressed! The interface is intuitive and easy to use, and the features
-        are exactly what I need to streamline my workfloed! The interface is
-        intuitive and easy to use, and the features are exactly what I need to
-        streamline my workflow. I've been using
+        {{ review.comment }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    review: {
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      date: "",
+    };
+  },
+  methods: {
+    dateFormater(date) {
+      const temp = new Date(date);
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      };
+      let formattedDate = temp.toLocaleString("es-ES", options);
+      formattedDate =
+        formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+      return formattedDate;
+    },
+  },
+  mounted() {
+    this.date = this.dateFormater(this.review.comment_date);
+  },
+};
 </script>
 
 <style>
 .rating {
-  color: #ed8003;
   font-size: 24px;
   margin-top: -20px;
 }
 
 .star {
+  color: #ed8003;
+  display: inline-block;
+}
+.disabled-star {
+  color: #919191;
   display: inline-block;
 }
 .user-pic {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-color: #f1f1f1;
   border-radius: 50%;
 }

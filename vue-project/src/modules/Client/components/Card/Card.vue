@@ -1,13 +1,14 @@
 <template>
   <div>
-    <router-link :to="to">
+    <router-link
+      :to="{ name: 'paquete', params: { packageName: packet.packageName } }"
+    >
       <div class="c-container">
         <div class="c-image-container">
-          <img :src="image" alt="Imagen de paquete" class="c-image" />
+          <img :src="packet.image" alt="Imagen de paquete" class="c-image" />
         </div>
         <div class="c-overlay">
-          <p
-           class="lp-subtitle fw-bold c-title">{{ name }}</p>
+          <p class="lp-subtitle fw-bold c-title">{{ packet.packageName }}</p>
         </div>
       </div>
     </router-link>
@@ -17,16 +18,8 @@
 <script>
 export default {
   props: {
-    image: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    to: {
-      type: String,
+    packet: {
+      type: Object,
       required: true,
     },
   },
@@ -34,5 +27,4 @@ export default {
 </script>
   
 <style>
-
 </style>
