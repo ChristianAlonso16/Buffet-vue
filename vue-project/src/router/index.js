@@ -20,19 +20,19 @@ const routes = [
             ...publicRoutes.map(route => {
                 route.meta.requireAuth = false;
                 return { ...route };
-              }),
+            }),
             ...adminRouter.map(route => {
                 route.meta.requireAuth = false
                 return {...route}
             }),
             ...clientRouter.map(route => {
-              route.meta.requireAuth = false
-              return {...route}
-          }),
-          ...workerRouter.map(route => {
-            route.meta.requireAuth = false
-            return {...route}
-        })
+                route.meta.requireAuth = false
+                return {...route}
+            }),
+            ...workerRouter.map(route => {
+                route.meta.requireAuth = false
+                return {...route}
+            })
         ]
     },
     {
