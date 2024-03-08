@@ -44,7 +44,9 @@
 
             <b-row class="d-flex justify-content-end">
               <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
-                <b-button class="r-button w-100">Comprar</b-button>
+                <router-link :to="{name:'resumenCompra',params:{packageName: packageName}}">
+                  <b-button class="r-button w-100">Comprar</b-button>
+                </router-link>
               </b-col>
             </b-row>
           </b-col>
