@@ -30,7 +30,7 @@ export default {
       async validateStatus(){
         try {
           const response = await Packages.changeStatus(this.name,this.status);
-          const newStatus = response.data.data.status.status
+          var newStatus = response.data.data.status.status
           if(response.status===200){
             Alerts.showMessageSuccess(response.data.message,"success");
             this.status=newStatus;

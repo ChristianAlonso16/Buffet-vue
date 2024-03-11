@@ -8,12 +8,12 @@
       </div>
     </div>
     
-    <b-modal size="lg" no-close-on-backdrop v-model="showModalEdit" hide-footer >
+    <b-modal size="lg" no-close-on-backdrop v-model="showModalEdit" id="showModalEdit" hide-footer >
       <template #modal-header="{ close }">
         <h3>Actualizar paquete</h3>
-        <p @click="close()" class="close-tag">X</p>
+        <p @click="closeM()" class="close-tag">X</p>
       </template>
-        <ModalEdit :data="selectedItem" :fetch-data="fetchData" :close-modal="closeModalEdit"/>
+        <ModalEdit :data="selectedItem" :fetch-data="fetchData" :close-modal="closeModalEdit" v-show="showModalEdit"/>
     </b-modal>
 
     <b-modal size="lg" no-close-on-backdrop v-model="showModalDetails" ok-only ok-variant="secondary" >
@@ -78,6 +78,7 @@ import Alerts from "../../../../services/Alerts";
 import ModalEdit from "./ModalEdit.vue";
 import ModalDetails from './ModalDetails.vue';
 import ModalAdd from './ModalAdd.vue';
+import ModalEditVue from './ModalEdit.vue';
 
 export default {
   data() {
@@ -112,6 +113,7 @@ export default {
     closeModalEdit() {
       this.showModalEdit = false;
       this.selectedItem=null
+      this.fetchData();
     },
     abrirModalDetails(index){
       this.showModalDetails=true;
@@ -123,8 +125,11 @@ export default {
     closeModalAdd(){
       this.showModalAdd=false;
       this.fetchData();
+    },
+    closeM(){
+      this.showModalEdit =false
+      this.fetchData();
     }
-
   },
   components: {
     ModalEdit,
