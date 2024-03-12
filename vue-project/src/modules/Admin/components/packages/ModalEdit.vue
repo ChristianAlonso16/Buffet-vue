@@ -107,7 +107,8 @@
             </div>
           
             <b-form-group id="fgimage">
-              <b-form-file
+              <b-form-file 
+                class="p-5"
                 v-model="form.image"
                 placeholder="Escoje un archivo o arrastralo aquí..."
                 drop-placeholder="Suelte el archivo aquí..."

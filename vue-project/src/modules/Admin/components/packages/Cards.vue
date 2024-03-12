@@ -9,7 +9,7 @@
     </div>
     
     <b-modal size="lg" no-close-on-backdrop v-model="showModalEdit" id="showModalEdit" hide-footer >
-      <template #modal-header="{ close }">
+      <template #modal-header="{  }">
         <h3>Actualizar paquete</h3>
         <p @click="closeM()" class="close-tag">X</p>
       </template>

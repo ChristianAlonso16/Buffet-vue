@@ -5,7 +5,7 @@
         <b-col sm="12" md="12">
           <div class="info-container">
             <p>Última modificación: {{ data.modifiedAt }}</p>
-            <IconStatus :status="status" />
+            <IconStatus :statusform="status.status" />
           </div>
         </b-col>
       </b-row>
