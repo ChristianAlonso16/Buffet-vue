@@ -5,41 +5,58 @@
                 <b-container v-if="step === 1">
                     <b-row no-gutters>
                         <b-col md="6">
-                            <b-card-img :src="paquet.image" rounded />
-                            <h3 class="mt-3 lp-subtitle">{{ paquet.packageName }}</h3>
-                            <h5 style="font-weight: bold; color: #b6b6b6;">Descripción</h5>
-                            <p>{{ paquet.packageDescription }}</p>
+                            <b-img fluid :src="paquet.image" class="rounded-4" />
+                            <h1 class="my-3 lp-subtitle">{{ paquet.packageName }}</h1>
+                            <p class="mb-3 text-start fw-semibold">Descripción</p>
+                            <b-card-text class="p-justify-text">
+                                {{ paquet.packageDescription }}
+                            </b-card-text>
                         </b-col>
                         <b-col class="text-center align-items-center">
-                            <b-row class="align-items-start">
+                            <b-row class="align-items-start" style="padding-top:4%">
                                 <ul id="progressbar">
                                     <li class="active">Detalles</li>
                                     <li>Dirección</li>
                                     <li>Pago</li>
                                 </ul>
                             </b-row>
-                            <b-row class="align-items-end">
-                                <b-col>Subtotal</b-col>
-                                <b-col>${{ paquet.price.toFixed(2) }}</b-col>
+                            <b-row class="d-flex justify-content-center mb-5">
+                                <b-col cols="9" style="margin-bottom: 1rem;">
+                                    <!-- <b-form-group label="Fecha de entrega" class="mt-4">
+                                    <b-form-datepicker/>
+                                </b-form-group> -->
+                                </b-col>
                             </b-row>
-                            <b-row class="line-between mt-2">
-                                <b-col>Descuento</b-col>
-                                <b-col>${{ paquet.discount.toFixed(2) }}</b-col>
+                            <b-row class="ms-5">
+                                <b-row class="align-items-end ">
+                                    <b-col class="text-start fw-semibold fs-4">Subtotal</b-col>
+                                    <b-col class="text-end fs-4 mt-4">${{ paquet.price.toFixed(2) }}</b-col>
+                                </b-row>
+                                <b-row class="mt-2 line-between">
+                                    <b-col class="text-start fw-semibold fs-4 mt-3">Descuento</b-col>
+                                    <b-col class="text-end fs-4 mt-3" style="color:red;">${{ paquet.discount.toFixed(2)
+                                        }}</b-col>
+                                </b-row>
+                                <b-row class="mt-3">
+                                    <b-col class="text-start fw-semibold fs-4 mt-3">Total</b-col>
+                                    <b-col class="text-end fs-4 mt-3">${{ order.orderPrice.toFixed(2) }}</b-col>
+                                </b-row>
                             </b-row>
-                            <b-row class="mt-3">
-                                <b-col>Total</b-col>
-                                <b-col>${{ order.orderPrice.toFixed(2) }}</b-col>
+                            <b-row class="d-flex justify-content-end mt-4">
+                                <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
+                                        <b-button class="r-button w-100" @click="increaseStep">Comprar</b-button>
+                                </b-col>
                             </b-row>
-                            <b-button class="r-button mt-5" @click="increaseStep">Continuar</b-button>
                         </b-col>
                     </b-row>
                 </b-container>
 
                 <b-container v-if="step === 2">
-                    <h3 class="lp-subtitle">Dirección de envío</h3>
+                    <b-button @click="backStep">Atras</b-button>
+                        <h3 class="lp-subtitle mb-4">Dirección de envío</h3>
                     <div class="text-center mt-2">
                         <ul id="progressbar">
-                            <li>Detalles</li>
+                            <li class="active">Detalles</li>
                             <li class="active">Dirección</li>
                             <li>Pago</li>
                         </ul>
@@ -75,7 +92,7 @@
                     <b-row>
                         <b-col>
                             <b-form-group label="Número de tarjeta" class="mt-5">
-                                <b-form-input class="r-input" v-model="payData.creditCard"/>
+                                <b-form-input class="r-input" v-model="payData.creditCard" />
                             </b-form-group>
                             <b-row class="mt-5">
                                 <b-col>
@@ -85,11 +102,11 @@
                                 </b-col>
                                 <b-col>
                                     <b-form-group label="CVV">
-                                        <b-form-input class="r-input" type="number" v-model="payData.cvv"/>
+                                        <b-form-input class="r-input" type="number" v-model="payData.cvv" />
                                     </b-form-group>
                                 </b-col>
                                 <b-form-group label="Nombre del propietario" class="mt-5">
-                                    <b-form-input class="r-input" v-model="payData.owner"/>
+                                    <b-form-input class="r-input" v-model="payData.owner" />
                                 </b-form-group>
                             </b-row>
                         </b-col>
@@ -97,8 +114,8 @@
                             <b-row class="align-items-start mt-5">
                                 <div class="text-center mt-2">
                                     <ul id="progressbar">
-                                        <li>Detalles</li>
-                                        <li>Dirección</li>
+                                        <li class="active">Detalles</li>
+                                        <li class="active">Dirección</li>
                                         <li class="active">Pago</li>
                                     </ul>
                                 </div>
@@ -148,8 +165,9 @@ export default {
                 postalCode: null,
                 city: "",
                 comments: "",
-                userEmail: "k@gmajil.com",
+                userEmail: "k@gmail.com",
                 packageName: null,
+                date: null
             },
             image: "",
             paquet: null,
@@ -164,6 +182,9 @@ export default {
     methods: {
         increaseStep() {
             this.step++;
+        },
+        backStep(){
+            this.step--;
         },
         addressValidation() {
             if (this.order.street && this.order.disctric && this.order.postalCode && this.order.city && this.order.comments) {
@@ -215,7 +236,11 @@ export default {
 
 <style scoped>
 .line-between {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #4F4F4F;
+}
+
+.p-justify-text {
+    text-align: justify;
 }
 
 #progressbar {
