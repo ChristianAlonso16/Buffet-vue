@@ -6,75 +6,148 @@
             </b-col>
         </b-row>
         <b-row class="mt-3 mb-3">
-            <b-col cols="12" sm="6" md="4" lg="3" xl="3">
-                <div class="input-group w-100">
-                    <button class="btn btn-outline-secondary hc-send-button" type="button">Q</button>
-                    <input type="text" class="form-control hc-send-button" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" placeholder="Buscar">
+            <b-col cols="12" sm="12" md="6" lg="4" xl="3">
+                <div class="group">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                        <g>
+                        <path
+                            d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                        ></path>
+                        </g>
+                    </svg>
+                    <input class="input" type="search" v-model="search" placeholder="Search" @input="searchFilter(search)"/>
                 </div>
             </b-col>
         </b-row>
         <b-row>
             <b-col cols="12" class="mb-4" v-for="history in historys" :key="history.id">
-                <Card :id="history.id"/>
+                <Card 
+                    :id="history.id"
+                    :data="history"
+                />
+            </b-col>
+            <b-col cols="12" class="mb-4" v-show="state">
+                <div class="text-center">
+                    <b-icon icon="box-seam" aria-hidden="true" class="w-25 h-25"></b-icon>
+                    <h1>No se encontro ningun paquete</h1>
+                </div>
             </b-col>
         </b-row>
     </b-container>
 </template>
 <script>
-import Card from '../../components/Card/CardsHistory.vue';
+import Card from "../../components/Card/CardsHistory.vue";
 
 export default {
     components: {
         Card,
     },
     methods: {
-    },
-    mounted() {
-        
+        searchFilter(search) {
+            const result = this.filters.filter(filters => filters.description.match(this.search.toLowerCase()));
+            this.historys = result;
+            if (this.historys.length !== 0) {
+                this.state = false;
+                return
+            };
+            this.state = true;
+        }
     },
     data() {
         return {
+            search: '',
+            state: false,
             historys: [
                 {
-                    "id": "1",
-                    "photo": "url1",
-                    "status": "In preparation",
-                    "description": "dish1",
-                    "date": "2021-01-01"
+                    id: "1",
+                    photo: "url1",
+                    status: "En proceso",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-01",
                 },
                 {
-                    "id": "2",
-                    "photo": "url2",
-                    "status": "On the way",
-                    "description": "dish2",
-                    "date": "2021-01-02"
+                    id: "2",
+                    photo: "url2",
+                    status: "En camino",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-02",
                 },
                 {
-                    "id": "3",
-                    "photo": "url3",
-                    "status": "Delivered",
-                    "description": "dish3",
-                    "date": "2021-01-03"
+                    id: "3",
+                    photo: "url2",
+                    status: "Entregado",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-02",
                 },
-                {
-                    "id": "4",
-                    "photo": "url4",
-                    "status": "In preparation",
-                    "description": "dish4",
-                    "date": "2021-01-04"
-                },
-                {
-                    "id": "5",
-                    "photo": "url5",
-                    "status": "On the way",
-                    "description": "dish5",
-                    "date": "2021-01-05"
-                }
             ],
-        }
-    }
-}
+            filters: [
+                {
+                    id: "1",
+                    photo: "url1",
+                    status: "En proceso",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-01",
+                },
+                {
+                    id: "2",
+                    photo: "url2",
+                    status: "En camino",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-02",
+                },
+                {
+                    id: "3",
+                    photo: "url2",
+                    status: "Entregado",
+                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
+                    date: "2021-01-02",
+                },
+            ]
+        };
+    },
+};
 </script>
 <style>
-    
+.group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 100%;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-left: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: 0.3s ease;
+}
+
+.input::placeholder {
+    color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+    outline: none;
+    border-color: rgba(247, 127, 0, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgb(247 127 0 / 10%);
+}
+
+.icon {
+    position: absolute;
+    left: 1rem;
+    fill: #9e9ea7;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
 </style>
