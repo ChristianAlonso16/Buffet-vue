@@ -184,6 +184,6 @@ export default {
     cursor: pointer;
     font-size: large;
     font-weight: bold;
-    color: #ed8003;
+    color: #404e67;
 }
 </style>
