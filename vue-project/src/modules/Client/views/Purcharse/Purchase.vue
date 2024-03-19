@@ -61,31 +61,54 @@
                     <b-row>
                         <b-col>
                             <b-form-group label="Calle">
-                                <b-form-input id="input-street" class="r-input" v-model="order.street" />
+                                <b-form-input id="input-street" class="r-input" v-model="order.street"
+                                    :state="states.streetState" />
+                                <b-form-invalid-feedback :state="states.streetState">
+                                    El campo no debe de contener caracteres especiales
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Código Postal" class="mt-4">
-                                <b-form-input type="number" id="input-cp" class="r-input" v-model="order.postalCode" />
+                                <b-form-input id="input-cp" class="r-input" pattern="\([0-9]{5}\)" minlength="5"
+                                    maxlength="5" v-model="order.postalCode" :state="states.postalCodeState" />
+                                <b-form-invalid-feedback :state="states.postalCodeState">
+                                    Únicamente ingresa 5 dígitos
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Instrucciones adicionales" class="mt-4">
-                                <b-form-input id="input-comments" class="r-input" v-model="order.comments" />
+                                <b-form-input id="input-comments" class="r-input" v-model="order.comments"
+                                    :state="states.commentsState" />
+                                <b-form-invalid-feedback :state="states.commentsState">
+                                    El campo no debe de contener caracteres especiales
+                                </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
                         <b-col>
                             <b-form-group label="Colonia">
-                                <b-form-input id="input-disctric" class="r-input" v-model="order.disctric" />
+                                <b-form-input id="input-disctric" class="r-input" v-model="order.disctric"
+                                    :state="states.disctricState" />
+                                <b-form-invalid-feedback :state="states.disctricState">
+                                    El campo no debe de contener caracteres especiales
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Ciudad" class="mt-4">
-                                <b-form-input id="input-city" class="r-input" v-model="order.city" />
+                                <b-form-input id="input-city" class="r-input" v-model="order.city"
+                                    :state="states.cityState" />
+                                <b-form-invalid-feedback :state="states.cityState">
+                                    El campo no debe de contener caracteres especiales
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Fecha de entrega" class="mt-4">
-                                <b-form-datepicker />
+                                <b-form-datepicker v-model="date" :state="states.dateState" />
+                                <b-form-invalid-feedback :state="states.dateState">
+                                    Seleccionar una fecha posterior a 1 semana de la fecha actual
+                                </b-form-invalid-feedback>
                             </b-form-group>
                         </b-col>
 
 
                     </b-row>
                     <b-row class="mt-5">
-                        <b-button class="r-button" @click="addressValidation">Continuar</b-button>
+                        <b-button class="r-button w-100" @click="addressValidation">Continuar</b-button>
                     </b-row>
                 </b-container>
 
@@ -96,21 +119,36 @@
                     <b-row>
                         <b-col>
                             <b-form-group label="Número de tarjeta" class="mt-5">
-                                <b-form-input class="r-input" v-model="payData.creditCard" />
+                                <b-form-input class="r-input" v-model="payData.creditCard" pattern="\([0-9]{12}\)"
+                                    minlength="12" maxlength="12" :state="states.creditCardState" />
+                                <b-form-invalid-feedback :state="states.creditCardState">
+                                    El campo debe de contener únicamente números
+                                </b-form-invalid-feedback>
                             </b-form-group>
                             <b-row class="mt-5">
                                 <b-col>
                                     <b-form-group label="Fecha expiración">
-                                        <b-form-input class="r-input" />
+                                        <b-form-input class="r-input" pattern="\([0-9]{4}\)" minlength="5" maxlength="5"
+                                            :state="states.expirationDate" />
+                                        <b-form-invalid-feedback :state="states.expirationDate">
+                                            Campo obligatorio
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                                 <b-col>
                                     <b-form-group label="CVV">
-                                        <b-form-input class="r-input" type="number" v-model="payData.cvv" />
+                                        <b-form-input class="r-input" v-model="payData.cvv" pattern="\([0-9]{3}\)/"
+                                            minlength="3" maxlength="3" :state="states.cvvState" />
+                                        <b-form-invalid-feedback :state="states.cvvState">
+                                            Campo obligatorio
+                                        </b-form-invalid-feedback>
                                     </b-form-group>
                                 </b-col>
                                 <b-form-group label="Nombre del propietario" class="mt-5">
-                                    <b-form-input class="r-input" v-model="payData.owner" />
+                                    <b-form-input class="r-input" v-model="payData.owner" :state="states.ownerState" />
+                                    <b-form-invalid-feedback :state="states.ownerState">
+                                        El campo no debe de contener caracteres especiales
+                                    </b-form-invalid-feedback>
                                 </b-form-group>
                             </b-row>
                         </b-col>
@@ -118,8 +156,8 @@
                             <b-row class="align-items-start" style="padding-top:4%">
                                 <ul id="progressbar">
                                     <li class="active">Detalles</li>
-                                    <li>Dirección</li>
-                                    <li>Pago</li>
+                                    <li class="active">Dirección</li>
+                                    <li class="active">Pago</li>
                                 </ul>
                             </b-row>
                             <b-row class="d-flex justify-content-center mb-5">
@@ -143,7 +181,7 @@
                             </b-row>
                             <b-row class="d-flex justify-content-end mt-4">
                                 <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
-                                    <b-button class="r-button w-100" @click="increaseStep">Comprar</b-button>
+                                    <b-button class="r-button w-100" @click="generateOrder">Comprar</b-button>
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -178,30 +216,105 @@ export default {
                 comments: "",
                 userEmail: "k@gmail.com",
                 packageName: null,
-                date: null
             },
+            date: null,
             image: "",
             paquet: null,
             payData: {
                 creditCard: "",
-                expirationDate: null,
-                cvv: 123,
+                expirationDate: "",
+                cvv: "",
                 owner: ""
+            },
+            states: {
+                streetState: null,
+                disctricState: null,
+                postalCodeState: null,
+                cityState: null,
+                commentsState: null,
+                dateState: null,
+                creditCardState: null,
+                expirationDateState: null,
+                cvvState: null,
+                ownerState: null
             }
         };
     },
     methods: {
+        validateLetters(string) {
+            const regex = /^([a-zA-Z ]{2,252})+$/;
+            if (regex.test(string) && string.trim() !== '') {
+                return true;
+            }
+            return false;
+        },
+
+        validateCP() {
+            const regex = /^\d{5,5}$/;
+            if (regex.test(this.order.postalCode) && this.order.postalCode.trim() !== "") {
+                return true;
+            }
+            return false;
+        },
+
+        validateSelectedDate(selectedDate) {
+            if (!selectedDate) {
+                return false;
+            }
+            const currentDate = new Date();
+            const selectedDateTime = new Date(selectedDate);
+
+            const oneWeekLater = new Date(currentDate);
+            oneWeekLater.setDate(oneWeekLater.getDate() + 7);
+
+            return selectedDateTime > currentDate && selectedDateTime > oneWeekLater;
+        },
+
+        validateCard() {
+            const regex = /^\d{12,12}$/;
+            if (regex.test(this.payData.creditCard) && this.payData.creditCard.trim() !== "") {
+                return true;
+            }
+            return false;
+        },
+
+        validateCvv() {
+            const regex = /^([0-9]{1,3})+$/;
+            if (regex.test(this.payData.cvv) && this.payData.cvv.trim() !== "") {
+                return true;
+            }
+            return false;
+        },
+
+        validateExpiration() {
+            const regex = /^([0-9]{1,5})+$/;
+            if (regex.test(this.payData.expirationDate) && this.payData.expirationDate.trim() !== "") {
+                return true;
+            }
+            return false;
+        },
+
+
         increaseStep() {
             this.step++;
         },
         backStep() {
             this.step--;
         },
-        addressValidation() {
-            if (this.order.street && this.order.disctric && this.order.postalCode && this.order.city && this.order.comments) {
-                this.step++;
-            } else {
+        addressValidation(ev) {
+            ev.preventDefault();
+            this.states.streetState = this.validateLetters(this.order.street) ? true : false;
+            this.states.disctricState = this.validateLetters(this.order.disctric) ? true : false;
+            this.states.cityState = this.validateLetters(this.order.city) ? true : false;
+            this.states.commentsState = this.validateLetters(this.order.comments) ? true : false;
+            this.states.postalCodeState = this.validateCP() ? true : false;
+            this.states.dateState = this.validateSelectedDate(this.date) ? true : false;
+
+            if (!this.states.streetState || !this.states.disctricState || !this.states.cityState || !this.states.commentsState || !this.states.postalCodeState || !this.states.dateState) {
                 Alerts.showMessageSuccess("Complete todos los campos antes de continuar", "info");
+                return;
+            } else {
+                this.step++;
             }
         },
         async getPackage(id) {
@@ -222,13 +335,24 @@ export default {
             }
         },
 
-        async generateOrder() {
+        async generateOrder(ev) {
+            ev.preventDefault();
+            this.states.creditCardState = this.validateCard() ? true : false;
+            this.states.cvvState = this.validateCvv() ? true : false;
+            this.states.ownerState = this.validateLetters(this.payData.owner) ? true : false;
+            this.states.expirationDateState = this.validateExpiration() ? true : false;
+
+            if (!this.states.creditCardState || !this.states.cvvState || !this.states.ownerState) {
+                Alerts.showMessageSuccess("Llene todos los campos antes de continuar", "info");
+                return;
+            }
             try {
                 this.showLoading = true;
                 const message = await Orders.addOrder(this.order);
                 console.log(message);
                 if (message.statusCode === 201) {
                     Alerts.showMessageSuccess("Compra registrada exitosamente", "success");
+                    this.$router.push("/home");
                 }
             } catch (error) {
                 Alerts.showMessageSuccess("Error al registrar orden", "error");
@@ -236,6 +360,7 @@ export default {
                 this.showLoading = false;
             }
         }
+
     },
 
     mounted() {
@@ -269,7 +394,6 @@ export default {
     width: 33.33%;
     float: left;
     position: relative;
-    /* letter-spacing: 1px; */
 }
 
 #progressbar li::before {
