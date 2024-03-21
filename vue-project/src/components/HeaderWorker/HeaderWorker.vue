@@ -8,9 +8,9 @@
             <b-collapse id="nav-collapse" is-nav>
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px"></ul>
                 <b-navbar-nav class="div-4">
-                    <b-nav-item to="detalles" class="div-5">Transporte</b-nav-item>
+                    <b-nav-item to="dashboard" class="div-5">Transporte</b-nav-item>
                     <b-nav-item to="dashboard" class="div-6">Comida</b-nav-item>
-                    <b-nav-item to="asignaciones" class="div-7">Utileria</b-nav-item>
+                    <b-nav-item to="dashboard" class="div-7">Utileria</b-nav-item>
                 </b-navbar-nav>
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px"></ul>
                 <b-navbar-nav class="div-8">
