@@ -1,18 +1,37 @@
-import Asignaciones from "../modules/Worker/views/Assignments/list_assignments.vue"
+import DetallesEntrega from "../modules/Worker/views/Delivery/DeliveryDetails.vue";
+import DashboardWorker from "../modules/Worker/views/DashboardWorker/DashboardWorker.vue";
+import Assignments from "../modules/Worker/views/Assignment/Assignments.vue";
+
 export default [
- 
     {
         path: '/trabajador',
-        name: '',
-        component: ()=> import("../layouts/WorkerLayout.vue"),
+        name: 'trabajador',
+        redirect: '/trabajador/dashboard',
+        component: () => import("../layouts/WorkerLayout.vue"),
         meta: {
             title:'Trabajador'
         },
         children:[
             {
-                path: '/asignaciones',
+                path: '/trabajador/detalles',
+                name: 'detalles',
+                component: DetallesEntrega,
+                meta: {
+                    title:'Detalles de entrega'
+                }
+            },
+            {
+                path: '/trabajador/dashboard',
+                name: 'dashboard',
+                component: DashboardWorker,
+                meta: {
+                    title:'Dashboard Worker'
+                }
+            },
+            {
+                path: '/trabajador/asignaciones',
                 name: 'asignaciones',
-                component: Asignaciones,
+                component: Assignments,
                 meta: {
                     title:'Asignaciones'
                 }

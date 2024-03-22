@@ -1,16 +1,18 @@
-<template lang="">
+<template>
     <div>
-        <SideBar/>
+        <HeaderWorker/>
+        <router-view/>
     </div>
 </template>
+
 <script>
-import SideBar from '../components/SideBar/SideBar.vue';
-export default {
-    components:{
-        SideBar
+    import HeaderWorker from '@/components/HeaderWorker/HeaderWorker.vue';
+
+    export default {
+        components: {
+            HeaderWorker
+        }
     }
-}
 </script>
-<style lang="">
-    
-</style>
+
+<style></style>
