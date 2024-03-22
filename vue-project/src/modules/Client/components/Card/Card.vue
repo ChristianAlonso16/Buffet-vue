@@ -6,7 +6,7 @@
       <div class="c-container">
         <div>
           <b-img
-            :src="packet.image"
+            :src="packet.images[0].image"
             alt="Imagen de paquete"
             fluid
             class="card-image"

@@ -132,7 +132,7 @@ export default {
   methods: {
     async getPackages() {
       try {
-        const data = await packageService.getPackages();
+        const data = await packageService.getAvailablePackages();
         if (data.statusCode === 200) {
           if (data.data.length > 0) {
             this.packageList = data.data.slice(0, 6);

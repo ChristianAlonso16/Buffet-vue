@@ -9,6 +9,14 @@ const getPackages = async () => {
   } catch (error) {}
 };
 
+
+const getAvailablePackages = async () => {
+  try {
+    const response = await axios.get(API_URL + "available");
+    return response.data;
+  } catch (error) {}
+}
+
 const getPackage = async (packageNama) => {
   try {
     const response = await axios.get(API_URL + packageNama);
@@ -19,4 +27,5 @@ const getPackage = async (packageNama) => {
 export default {
   getPackages,
   getPackage,
+  getAvailablePackages
 };

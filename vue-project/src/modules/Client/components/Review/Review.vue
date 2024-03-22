@@ -62,7 +62,7 @@ export default {
     },
   },
   mounted() {
-    this.date = this.dateFormater(this.review.comment_date);
+    this.date = this.dateFormater(this.review.commentDate);
   },
 };
 </script>

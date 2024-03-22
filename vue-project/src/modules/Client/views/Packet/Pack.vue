@@ -54,7 +54,7 @@
           <div>
             <div
               v-for="review in displayedReviews"
-              :key="review.id_package_has_comment"
+              :key="review.idPackageHasComment"
             >
               <Review :review="review" />
             </div>
@@ -109,16 +109,7 @@ export default {
       reviews: [],
       imageList: [
         {
-          url: "https://www.shutterstock.com/image-photo/party-table-graduation-decoration-600nw-1198731190.jpg",
-        },
-        {
-          url: "https://horsepowermexico.com/wp-content/uploads/2018/07/P_670a46c74851479788dd70273e709b15.jpg",
-        },
-        {
-          url: "https://www.gob.mx/cms/uploads/article/main_image/114673/Depositphotos_122576538_XL_750x392.jpg",
-        },
-        {
-          url: "https://taquizasdonjulio.com.mx/wp-content/uploads/2022/01/Taquizas-6.jpg",
+          image: "",
         },
       ],
     };
@@ -161,7 +152,8 @@ export default {
           this.price = this.formatAmount(pack.price);
           this.discount = pack.discount;
           this.ability = pack.ability;
-          this.category = pack.category.categoryName;
+          this.category = pack.category;
+          this.imageList = pack.images;
           this.totalWithDiscount = this.formatAmount(
             pack.price - pack.discount
           );

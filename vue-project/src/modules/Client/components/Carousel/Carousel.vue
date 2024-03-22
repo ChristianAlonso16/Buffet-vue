@@ -34,9 +34,9 @@
           class="mb-3"
         >
           <b-img
-            :class="{ 'selected-image': currentImage === image.url }"
+            :class="{ 'selected-image': currentImage === image.image }"
             rounded
-            :src="image.url"
+            :src="image.image"
             @click="changeImage(image)"
             class="w-100 h-100 img"
           />
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     currentImage() {
-      return this.imageList[this.currentImageIndex].url;
+      return this.imageList[this.currentImageIndex].image;
     },
   },
   methods: {
@@ -152,8 +152,8 @@ export default {
   right: 5px;
 }
 .selected-image {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
-    transition: 0.3s;
-    cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+  transition: 0.3s;
+  cursor: pointer;
 }
 </style>
