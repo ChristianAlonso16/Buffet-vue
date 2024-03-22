@@ -26,10 +26,10 @@ export default {
 <style>
 .loader {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   opacity: .8;
   background-color: rgba(255, 254, 254, 0.5);
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -38,7 +38,6 @@ export default {
   align-items: center;
   --color: #ed8003;
   --animation: 2s ease-in-out infinite;
-  
 }
 
 .loader .circle {

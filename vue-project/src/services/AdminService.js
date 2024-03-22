@@ -16,6 +16,19 @@ const getWorkers = async () => {
    } catch (error) {
    }
 };
+const updateStatus = async (email,currentStatus) => {
+   try {
+
+      const response = await axios.put(url+"/updateStatus",{
+            name:email,
+      status:currentStatus
+   });
+      console.log(response);
+      return response.data;
+   } catch (error) {
+      console.log(error);
+   }
+}
 export default{
-   getClients,getWorkers
+   getClients,getWorkers,updateStatus
 }

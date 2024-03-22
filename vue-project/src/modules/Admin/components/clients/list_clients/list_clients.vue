@@ -2,59 +2,91 @@
     <div class="mt-5 text-center">
         <div class="linea_punto"></div>
         <h4 class="open_sans">
-            Gestion de clientes
+            Gestión de clientes
         </h4>
         <div class="mt-5 row">
             <div v-if="items.length === 0" class="col-12 text-center">
                 <p>No hay registros disponibles.</p>
             </div>
             <div>
-                <b-table class="shadow rounded" striped hover :items="items" :fields="fields">
-                    <template v-slot:cell(fkStatus.status)="data">
+                <b-table label-sort-asc label-sort-desc bordered responsive class="shadow rounded text-center" striped hover :items="items" :fields="fields">
+                    <template v-slot:cell(fkStatus.statusName)="data">
                         <td
                             :class="{ 'badge text-bg-success': data.value === 'enable', 'badge text-bg-danger': data.value !== 'enable' }">
                             {{ data.value === 'enable' ? 'Activo' : 'Inactivo' }}
+                        </td>
+                        <td>
+                        </td>
+                    </template>
+
+                    <template v-slot:cell(actions)="data" >
+                        <td class="d-flex justify-content-center">
+                            <b-button @click="updateStatus(data.item.email, data.item.fkStatus.statusName)" class="w-100">
+                                <b-icon-arrow-repeat></b-icon-arrow-repeat>
+                                {{ data.item.fkStatus.statusName === 'enable' ? 'Desactivar' : 'Activar' }}
+                            </b-button>
+                            
                         </td>
                     </template>
                 </b-table>
             </div>
         </div>
+        <Loading v-if="showLoading" />
     </div>
 </template>
-  
+
 <script>
 import AdminServices from '../../../../../services/AdminService';
 import Alerts from '../../../../../services/Alerts';
+import Loading from '../../../../../components/Loading/loading.vue';
 
 export default {
-
+    components: {
+        Loading
+    },
     data() {
         return {
+            showLoading: false,
             items: [],
             fields: [
-                { key: "email", label: "Correo", sortable: false },
-                { key: "fkUserInfo.name", label: "Nombre", sortable: false },
-                { key: "fkUserInfo.lastname", label: "Apellido", sortable: false },
-                { key: "fkUserInfo.phone", label: "Telefono", sortable: false },
-                { key: "fkUserInfo.createdAt", label: "Fecha de registro", sortable: false },
-                { key: "fkStatus.status", label: "Status", sortable: false },
-
-
+                { key: "email", label: "Correo", sortable: true },
+                { key: "fkUserInfo.name", label: "Nombre", sortable: true },
+                { key: "fkUserInfo.lastname", label: "Apellido", sortable: true },
+                { key: "fkUserInfo.phone", label: "Telefono", sortable: true },
+                { key: "fkUserInfo.createdAt", label: "Fecha de registro", sortable: true },
+                { key: "fkStatus.statusName", label: "Estatus", sortable: true },
+                { key: 'actions', label: 'Acciones', sortable: true }
             ]
         };
     },
 
     mounted() {
+        this.showLoading = true;
         this.getClients();
     },
 
     methods: {
+        async updateStatus(email, currentStatus) {
+            try {
+                let status = currentStatus == 'enable' ? 'disabled' : 'enable';
+                const data = await AdminServices.updateStatus(email, status);
+                if (data.statusCode === 200) {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Actualizado", "success");
+                    this.getClients();
+                } else {
+                    Alerts.showMessageSuccess(data.message != "" ? data.message : "Error", "error");
+
+                }
+            } catch (error) {
+
+            }
+        },
         async getClients() {
             try {
                 const data = await AdminServices.getClients();
                 if (data.statusCode === 200) {
-                    console.log(data.data);
                     this.items = [...data.data]
+                    this.showLoading = false;
                 }
 
             } catch (error) {
@@ -64,9 +96,8 @@ export default {
     },
 };
 </script>
-  
-<style scoped>
 
+<style scoped>
 .open_sans {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -102,10 +133,4 @@ export default {
     box-sizing: content-box;
 }
 
-.Addbutton {
-    background-color: #404e67;
-    border-color: #404e67;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
 </style>
-  
