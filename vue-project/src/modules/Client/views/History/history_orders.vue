@@ -22,7 +22,7 @@
         <b-row>
             <b-col cols="12" class="mb-4" v-for="history in historys" :key="history.id">
                 <Card 
-                    :id="history.id"
+                    :id="history.numOrder"
                     :data="history"
                 />
             </b-col>
@@ -37,72 +37,39 @@
 </template>
 <script>
 import Card from "../../components/Card/CardsHistory.vue";
+import Historial from "../../../../services/Historial";
 
 export default {
     components: {
         Card,
     },
+    mounted() {
+        this.getAllHistory();
+    },
     methods: {
         searchFilter(search) {
-            const result = this.filters.filter(filters => filters.description.match(this.search.toLowerCase()));
+            console.log(search);
+            const result = this.filters.filter(data => data.servicePackage.packageName.toLowerCase().includes(search.toLowerCase()));        
             this.historys = result;
             if (this.historys.length !== 0) {
-                this.state = false;
+                this.state = true;
                 return
             };
-            this.state = true;
+            this.state = false;
+            return
+        },
+        async getAllHistory() {
+            const response = await Historial.getAllOrders();
+            this.historys = response.data
+            this.filters = response.data
         }
     },
     data() {
         return {
             search: '',
             state: false,
-            historys: [
-                {
-                    id: "1",
-                    photo: "url1",
-                    status: "En proceso",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-01",
-                },
-                {
-                    id: "2",
-                    photo: "url2",
-                    status: "En camino",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-02",
-                },
-                {
-                    id: "3",
-                    photo: "url2",
-                    status: "Entregado",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-02",
-                },
-            ],
-            filters: [
-                {
-                    id: "1",
-                    photo: "url1",
-                    status: "En proceso",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-01",
-                },
-                {
-                    id: "2",
-                    photo: "url2",
-                    status: "En camino",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-02",
-                },
-                {
-                    id: "3",
-                    photo: "url2",
-                    status: "Entregado",
-                    description: "Servicio de alimentos para a 3 tiempos para 50 personas.",
-                    date: "2021-01-02",
-                },
-            ]
+            historys: [],
+            filters: [],
         };
     },
 };

@@ -1,5 +1,5 @@
 <template>
-    <b-container class="mt-5">
+    <b-container class="mt-5" v-if="state">
         <div class="hc-card border border-1 p-5">
             <b-row class="text-start mb-3">
                 <b-col cols="12" sm="12" md="12" lg="4" xl="4">
@@ -8,10 +8,9 @@
                 </b-col>
                 <b-col cols="12" sm="12" md="12" lg="8" xl="8">
                     <div class="col-p">
-                        <h1 class="f-title">Paquete simple</h1>
+                        <h1 class="f-title">{{ data.servicePackage.packageName }}</h1>
                         <h2 class="f-description">Descripción</h2>
-                        <p class="f-description-text">Mesa ceremonial, con platos de entrada para hasta 80 personas. Este paquete es muy complementario
-                            para la degustación de niños y adultos</p>
+                        <p class="f-description-text">{{ data.servicePackage.packageDescription }}</p>
                     </div>
                 </b-col>
             </b-row>
@@ -57,14 +56,14 @@
                 <b-col cols="12" sm="12" md="12" lg="8" xl="8" class="align-self-end">
                     <b-row class="mb-5 text-end">
                         <b-col class="f-total-title mb-3" cols="12">Total</b-col>
-                        <b-col class="f-total-number" cols="12">$133,531</b-col>
+                        <b-col class="f-total-number" cols="12">${{ formatAmount(data.orderPrice) }}</b-col>
                     </b-row>
                     <b-row class="d-flex justify-content-end">
                         <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
-                            <b-button class="r-button w-100">Vermás</b-button>
+                            <b-button class="r-button w-100" style="font-weight: bold;">Ver más</b-button>
                         </b-col>
-                        <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
-                            <b-button class="f-button w-100">Volver a comprar</b-button>
+                        <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2" v-show="delivered">
+                            <b-button class="f-button w-100" style="font-weight: bold;">Volver a comprar</b-button>
                         </b-col>
                     </b-row>
                 </b-col>
@@ -73,35 +72,46 @@
     </b-container>
 </template>
 <script>
+import Historial from '../../../../services/Historial'
 export default {
     data() {
         return {
-            id: '',
-            status: 1,
-            process: true,
+            process: false,
             onTheWay: false,
             delivered: false,
-            data: []
+            data: [],
+            state: false,
         }
     },
     methods: {
-        statusProgress(data){
-            if(data.status === "En proceso") {
+        formatAmount(amount) {
+            return amount.toLocaleString("es-MX", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            });
+        },
+        statusProgress() {
+            if (this.data.status.statusName === "accepted   ") {
                 this.process = true
-            } else if (data.status === "En camino") {
+            } else if (this.data.status.statusName === "proceess") {
                 this.process = true
                 this.onTheWay = true
-            } else if (data.status === "En camino") {
+            } else if (this.data.status.statusName === "sold") {
                 this.process = true
                 this.onTheWay = true
                 this.delivered = true
             }
+        },
+        async getData(id) {
+            const result = await Historial.getByNumOrder(id);
+            this.data = result.data;
+            this.statusProgress(result.data);
+            this.state = true
         }
     },
     mounted() {
-        this.id = this.$route.params.id;
-        this.data = this.$route.params.items;
-    },
+        this.getData(this.$route.params.id)
+    }
 }
 </script>
 <style>
@@ -111,7 +121,7 @@ export default {
     position: absolute;
     top: calc(1% + 15px);
     left: calc(1% + 11px);
-    background-color: #838383;
+    background-color: #F9B86E;
 }
 
 .test-line.active {
@@ -131,11 +141,11 @@ export default {
     height: 100%;
 }
 
-.text1{
+.text1 {
     color: #BFC1C0;
 }
 
-.text2{
+.text2 {
     font-weight: bold;
     color: #ed8003;
 }
@@ -165,7 +175,7 @@ export default {
     border-radius: 60%;
     box-sizing: border-box;
     z-index: 1;
-    background-color: #838383;
+    background-color: #F9B86E;
 }
 
 .fila .disco .active {

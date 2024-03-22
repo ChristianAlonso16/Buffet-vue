@@ -1,20 +1,19 @@
 <template>
-    <div class="hc-card border border-1">
+    <div class="hc-card border border-1" v-if="state">
         <b-container>
             <b-row class="p-3">
                 <b-col cols="12" sm="12" md="3" lg="3" xl="3" class="mt-3 mb-3">
-                    <img src="https://media.istockphoto.com/id/650655146/es/foto/mesa-de-eventos-de-bodas-de-alimentos-de-catering.jpg?s=612x612&w=0&k=20&c=70CS4YhBmjx7UUt1tKcu8XDiNHrMBZUHoAfHLSVEMFE="
-                        class="hc-img" alt="...">
+                    <img :src=datas.servicePackage.image class="hc-img" :alt=datas.servicePackage.packageName>
                 </b-col>
                 <b-col cols="12" sm="12" md="9" lg="6" xl="6" class="mt-3 mb-3">
-                    <p class="hc-text-status">{{ datas.status }}</p>
-                    <p class="hc-text-date">{{ dateStructure(datas.date) }}</p>
-                    <p class="hc-text-description">{{ datas.description }}</p>
+                    <p class="hc-text-status">{{ datas.servicePackage.packageName }}</p>
+                    <p class="hc-text-date">{{ dateStructure(datas.orderDate) }}</p>
+                    <p class="hc-text-description">{{ datas.servicePackage.packageDescription }}</p>
                 </b-col>
                 <b-col cols="12" sm="12" md="12" lg="3" xl="3" class="mt-3 mb-3">
                     <b-row>
                         <b-col class="text-end">
-                            <router-link :to="to" :items="datas">
+                            <router-link :to="to">
                                 <b-button type="submit" class="mb-3 r-button w-100">Ver compra</b-button>
                             </router-link>
                         </b-col>
@@ -35,19 +34,18 @@ export default {
     data() {
         return {
             to: '',
-            datas: []
+            datas: [],
+            state: false,
         }
     },
     mounted() {
         this.to = "/seguimiento/" + this.id.toString();
         this.datas = this.data;
+        this.state = true;
     },
     methods: {
         statusDeliveri() {
-            if (this.datas.status === "Entregado") {
-                return true;
-            }
-            return false;
+            return this.datas.status.statusName === "sold";
         },
         dateStructure(dateString) {
             const months = [
