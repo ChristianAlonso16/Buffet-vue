@@ -9,9 +9,9 @@ const getPackages = async () => {
   } catch (error) {}
 };
 
-const getPackage = async (id) => {
+const getPackage = async (packageNama) => {
   try {
-    const response = await axios.get(API_URL + id);
+    const response = await axios.get(API_URL + packageNama);
     return response.data;
   } catch (error) {}
 };
