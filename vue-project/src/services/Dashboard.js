@@ -1,7 +1,7 @@
 import axios from "axios";
 import AdminService from './AdminService';
 import PackageService from './Packages';
-
+import WorkerService from "./WorkerService";
 let API_URL="http://localhost:8080/api/order/"
 
 const getOrders = async ()=>{
@@ -27,7 +27,7 @@ const calculateClients=async()=>{
 
 const calculateWorkers=async()=>{
     try {
-        const response = await AdminService.getWorkers();
+        const response = await WorkerService.getWorkers();
         if(!response){
             throw new Error();
         }

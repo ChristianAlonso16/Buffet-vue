@@ -144,9 +144,8 @@
 </template>
 
 <script>
-import addWorker from "../../../../../services/AddWorker";
 import showMessageSuccess from "../../../../../services/Alerts";
-
+import WorkerService from "../../../../../services/WorkerService";
 export default {
   data() {
     return {
@@ -238,7 +237,7 @@ export default {
       }
 
       try {
-        const message = await addWorker(
+        const message = await WorkerService.addWorker(
           this.email,
           this.password,
           this.name,

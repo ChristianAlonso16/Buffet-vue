@@ -90,6 +90,7 @@ export default {
                     this.items = [...data.data]
                 }
             } catch (error) {
+                this.showLoading = false;
                 Alerts.showMessageSuccess("Error al traer trabajadores", "error");
             }
         }

@@ -35,9 +35,9 @@ export default {
       items:[],
       fields: [
                 { key: "numOrder", label: "N° Solicitud", sortable: false },
-                { key: "userAccount.fkUserInfo.name", label: "Cliente", sortable: false },
+                { key: "userEmail", label: "Cliente", sortable: false },
                 { key: "orderDate", label: "Fecha", sortable: false },
-                { key: "servicePackage.packageName", label: "Paquete", sortable: false },
+                { key: "packageName", label: "Paquete", sortable: false },
                 { key: 'actions', label: 'Acciones', sortable: false }
               ],
       selectedOrder:null,
