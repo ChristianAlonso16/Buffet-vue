@@ -24,7 +24,7 @@
                     <template v-slot:cell(actions)="data">
                         <td class="d-flex justify-content-center">
 
-                            <b-button @click="updateStatus(data.item.email, data.item.fkStatus.statusName)" class="w-100">
+                            <b-button @click="updateStatus(data.item.numWorker, data.item.fkStatus.statusName)" class="w-100">
                                 <b-icon-arrow-repeat></b-icon-arrow-repeat>
                                 {{ data.item.fkStatus.statusName === 'enable' ? 'Desabilitar' : 'Habilitar' }}
                             </b-button>
@@ -38,18 +38,17 @@
 </template>
 
 <script>
-import AdminServices from '../../../../../services/AdminService';
 import Alerts from '../../../../../services/Alerts';
 import addWorkerModal from './addWorkerModal.vue';
 import Loading from '../../../../../components/Loading/loading.vue';
-
+import WorkerService from '../../../../../services/WorkerService';
 export default {
     data() {
         return {
             showLoading: false,
             items: [],
             fields: [
-                { key: "email", label: "Correo", sortable: true },
+                { key: "numWorker", label: "Num. Trabajador", sortable: true },
                 { key: "fkUserInfo.name", label: "Nombre", sortable: true },
                 { key: "fkUserInfo.lastname", label: "Apellido", sortable: true },
                 { key: "fkUserInfo.phone", label: "Teléfono", sortable: true },
@@ -67,10 +66,10 @@ export default {
     },
 
     methods: {
-        async updateStatus(email, currentStatus) {
+        async updateStatus(numWorker, currentStatus) {
             try {
                 let status = currentStatus == 'enable' ? 'disabled' : 'enable';
-                const data = await AdminServices.updateStatus(email, status);
+                const data = await WorkerService.updateStatusWorker(numWorker, status);
                 if (data.statusCode === 200) {
                     Alerts.showMessageSuccess(data.message != "" ? data.message : "Actualizado", "success");
                     this.getWorkers();
@@ -84,10 +83,11 @@ export default {
         },
         async getWorkers() {
             try {
-                const data = await AdminServices.getWorkers();
+                const data = await WorkerService.getWorkers();
                 if (data.statusCode === 200) {
                     this.showLoading = false;
                     this.items = [...data.data]
+                    console.log(this.items);
                 }
             } catch (error) {
                 this.showLoading = false;

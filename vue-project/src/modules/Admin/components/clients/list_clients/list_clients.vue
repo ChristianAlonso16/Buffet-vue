@@ -69,7 +69,7 @@ export default {
         async updateStatus(email, currentStatus) {
             try {
                 let status = currentStatus == 'enable' ? 'disabled' : 'enable';
-                const data = await AdminServices.updateStatus(email, status);
+                const data = await AdminServices.updateStatusUser(email, status);
                 if (data.statusCode === 200) {
                     Alerts.showMessageSuccess(data.message != "" ? data.message : "Actualizado", "success");
                     this.getClients();

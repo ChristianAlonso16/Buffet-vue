@@ -5,11 +5,14 @@ let url = 'http://localhost:8080/api/userAccount';
 const getClients = async () => {
    try {
       const response = await axios.get(url+"/getClients");
+      if(!response){
+            throw new Error();
+        }
       return response.data;
    } catch (error) {
    }
 };
-const updateStatus = async (email,currentStatus) => {
+const updateStatusUser = async (email,currentStatus) => {
    try {
 
       const response = await axios.put(url+"/updateStatus",{
@@ -23,5 +26,5 @@ const updateStatus = async (email,currentStatus) => {
    }
 }
 export default{
-   getClients,updateStatus
+   getClients,updateStatusUser
 }

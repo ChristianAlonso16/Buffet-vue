@@ -28,7 +28,6 @@
 
 <script>
 import Dashboard from '../../../../services/Dashboard';
-import Alerts from '../../../../services/Alerts';
 export default {
   data(){
     return{
