@@ -1,14 +1,19 @@
 <template>
-  <div class="mt-5 text-center">
-    <div class="linea_punto"></div>
-    <h4 class="open_sans">Categorías</h4>
-    <div class="row mb-3">
+  <div>
+    <div class="mt-4">
+      <h1>Gestión de categorías</h1>
+      <h5>Lista de categorías</h5>
+    </div>
+    <div class="row mb-3 text-center">
       <div class="d-flex justify-content-end">
-        <b-button @click="openModal" class="mb-4">Agregar Categoría</b-button>
+        <b-button @click="openModal" class="mb-4">
+          <b-icon-plus></b-icon-plus>
+          Agregar Categoría</b-button
+        >
       </div>
     </div>
-    <div class="row">
-      <div v-if="categories.length === 0" class="col-12 text-center">
+    <div class="row text-center">
+      <div v-if="categories.length === 0" class="col-12">
         <p>No hay registros disponibles.</p>
       </div>
       <div
@@ -48,9 +53,13 @@
         <b-row class="mt-3">
           <div class="d-flex justify-content-end">
             <b-button @click="modalShow = false" class="me-3">
+              <b-icon-x></b-icon-x>
               Cancelar
             </b-button>
-            <b-button type="submit" block> Guardar</b-button>
+            <b-button type="submit" block>
+              <b-icon-check></b-icon-check>
+              Guardar</b-button
+            >
           </div>
         </b-row>
       </b-form>
@@ -101,6 +110,7 @@ export default {
           }));
         }
       } catch (error) {
+        this.showLoading = false;
         Alerts.showMessageSuccess("Error al traer categorias", "error");
       }
     },
@@ -148,40 +158,5 @@ export default {
 
 .card:hover {
   transform: scale(1.05);
-}
-
-.open_sans {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
-  margin: 16px;
-}
-
-.linea_punto {
-  margin: 0 auto;
-  max-width: 290px;
-  width: 100%;
-  height: 2px;
-  background-color: #404e67;
-  position: relative;
-}
-
-.linea_punto::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: #404e67;
-  border: 8px solid #fff;
-  left: 50%;
-  top: -10px;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
-  transform: translateX(-50%);
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  background-clip: padding-box;
-  box-sizing: content-box;
 }
 </style>

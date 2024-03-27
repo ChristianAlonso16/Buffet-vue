@@ -69,21 +69,8 @@
             </b-form-invalid-feedback>
           </b-col>
         </b-row>
+
         <b-row>
-          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
-            <label for="email">Correo electrónico</label>
-            <b-form-input
-              class="r-input"
-              id="email"
-              v-model="email"
-              type="email"
-              required
-              :state="emailState"
-            />
-            <b-form-invalid-feedback :state="emailState">
-              El correo solo debe ser gmail o hotmail
-            </b-form-invalid-feedback>
-          </b-col>
           <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
             <label for="password">Contraseña</label>
             <b-form-input
@@ -99,22 +86,7 @@
               un número y un caracter especial
             </b-form-invalid-feedback>
           </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
-            <label for="hours-worked">Horas de trabajo</label>
-            <b-form-input
-              class="r-input"
-              id="hours-worked"
-              v-model="hours"
-              required
-              type="number"
-              :state="hoursState"
-            />
-            <b-form-invalid-feedback :state="hoursState">
-              Las horas deben ser mayor a 0 y menor a 24
-            </b-form-invalid-feedback>
-          </b-col>
+
           <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
             <label for="confirm-password">Confirmar contraseña</label>
             <b-form-input
@@ -127,6 +99,56 @@
             />
             <b-form-invalid-feedback :state="confirmPasswordState">
               Las contraseñas no coinciden
+            </b-form-invalid-feedback>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
+            <label for="start">Inicio de jornada</label>
+          </b-col>
+          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
+            <label for="end">Fin de jornada</label>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col
+            cols="12"
+            sm="12"
+            md="6"
+            lg="6"
+            xl="6"
+            class="mb-4 d-flex justify-content-center"
+          >
+            <b-time v-model="startHour" header-tag show-seconds locale="en">
+            </b-time>
+          </b-col>
+          <b-col
+            cols="12"
+            sm="12"
+            md="6"
+            lg="6"
+            xl="6"
+            class="mb-4 d-flex justify-content-center"
+          >
+            <b-time
+              v-model="endHour"
+              header-tag
+              show-seconds
+              locale="en"
+              hours="h23"
+            >
+            </b-time>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
+            <b-form-invalid-feedback :state="startHourState">
+              La hora debe ser menor a la hora de fin o no puede estar vacía
+            </b-form-invalid-feedback>
+          </b-col>
+          <b-col cols="12" sm="12" md="6" lg="6" xl="6" class="mb-4">
+            <b-form-invalid-feedback :state="endHourState">
+              La hora debe ser mayor a la hora de inicio o no puede estar vacía
             </b-form-invalid-feedback>
           </b-col>
         </b-row>
@@ -144,27 +166,28 @@
 </template>
 
 <script>
-import showMessageSuccess from "../../../../../services/Alerts";
+import Alerts from "../../../../../services/Alerts";
 import WorkerService from "../../../../../services/WorkerService";
 export default {
   data() {
     return {
-      email: null,
+      numWorker: null,
       password: null,
       name: null,
       lastname: null,
       surname: null,
       phone: null,
-      hours: null,
+      startHour: null,
+      endHour: null,
       confirmPassword: null,
-      emailState: null,
       passwordState: null,
       nameState: null,
       lastnameState: null,
       surnameState: null,
       phoneState: null,
-      hoursState: null,
       confirmPasswordState: null,
+      startHourState: null,
+      endHourState: null,
     };
   },
   methods: {
@@ -181,23 +204,7 @@ export default {
       }
       return false;
     },
-    validateHours() {
-      if (this.hours.trim() !== "") {
-        if (this.hours > 0 && this.hours < 24) {
-          return true;
-        }
-      }
-      return false;
-    },
-    validateEmail() {
-      if (
-        this.email.trim().endsWith("@gmail.com") ||
-        (this.email.trim().endsWith("@hotmail.com") && this.email.trim() !== "")
-      ) {
-        return true;
-      }
-      return false;
-    },
+
     validateLetters(string) {
       const regex = /^([a-zA-Z ]{2,254})+$/;
       if (regex.test(string) && string.trim() !== "") {
@@ -212,38 +219,63 @@ export default {
       }
       return false;
     },
+    validateHours() {
+      if (this.startHour === null || this.endHour === null) {
+        return false;
+      }
+      if (this.startHour.trim() !== "" && this.endHour.trim() !== "") {
+        if (this.startHour < this.endHour) {
+          return true;
+        }
+      }
+      return false;
+    },
+    validateEndHour() {
+      if (this.startHour === null || this.endHour === null) {
+        return false;
+      }
+      if (this.endHour.trim() !== "") {
+        if (this.endHour > this.startHour) {
+          return true;
+        }
+      }
+      return false;
+    },
     async addWorker(event) {
       event.preventDefault();
       this.nameState = this.validateLetters(this.name) ? true : false;
       this.lastnameState = this.validateLetters(this.lastname) ? true : false;
       this.surnameState = this.validateLetters(this.surname) ? true : false;
-      this.emailState = this.validateEmail() ? true : false;
       this.passwordState = this.validatePassword() ? true : false;
       this.phoneState = this.validatePhone() ? true : false;
-      this.hoursState = this.validateHours() ? true : false;
       this.confirmPasswordState = this.validateSamePassword() ? true : false;
-
+      this.startHourState = this.validateHours() ? true : false;
+      this.endHourState = this.validateEndHour() ? true : false;
       if (
         !this.nameState ||
         !this.lastnameState ||
         !this.surnameState ||
-        !this.emailState ||
         !this.passwordState ||
         !this.phoneState ||
-        !this.hoursState ||
-        !this.confirmPasswordState
+        !this.confirmPasswordState ||
+        !this.startHourState ||
+        !this.endHourState
       ) {
         return;
       }
-
+      this.numWorker = this.generateNumberWorker();
+      console.log(this.numWorker);
+      console.log(this.startHour, this.endHour);
       try {
         const message = await WorkerService.addWorker(
-          this.email,
+          this.numWorker,
           this.password,
           this.name,
           this.surname,
           this.lastname,
-          this.phone
+          this.phone,
+          this.startHour,
+          this.endHour
         );
 
         if (message.statusCode === 201) {
@@ -252,19 +284,28 @@ export default {
 
           this.$emit("update-users");
 
-          showMessageSuccess(
+          Alerts.showMessageSuccess(
             "Personal de trabajo registrado correctamente",
             "success"
           );
+        } else {
+          Alerts.showMessageSuccess(
+            "Información inválida. Inténtelo más tarde",
+            "error"
+          );
         }
-        showMessageSuccess(
-          "Información inválida. Inténtelo más tarde",
+      } catch (error) {
+        Alerts.showMessageSuccess(
+          "Error interno. Inténtelo más tarde",
           "error"
         );
-      } catch (error) {
-        showMessageSuccess("Error interno. Inténtelo más tarde", "error");
         throw error;
       }
+    },
+    generateNumberWorker() {
+      const letter = "W";
+      const number = Math.floor(Math.random() * 900) + 100;
+      return letter + number;
     },
     openModal() {
       this.onReset();
@@ -279,6 +320,8 @@ export default {
       this.phone = "";
       this.hours = "";
       this.confirmPassword = "";
+      this.startHour = null;
+      this.endHour = null;
       this.nameState = null;
       this.lastnameState = null;
       this.surnameState = null;

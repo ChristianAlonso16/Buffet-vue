@@ -1,20 +1,21 @@
 <template>
-    <div class="mt-5 text-center">
-        <div class="linea_punto"></div>
-        <h4 class="open_sans">
-            Gestión de trabajadores
-        </h4>
-        <div class="row mb-3">
+    <div>
+        <div class="mt-4">
+            <h1>Gestión de trabajadores</h1>
+            <h5>Lista de trabajadores</h5>
+        </div>
+        <div class="row mb-2 text-center">
             <div class="d-md-flex justify-content-md-end">
                 <addWorkerModal @update-users="getWorkers" />
             </div>
         </div>
-        <div class="mt-5 row">
-            <div v-if="items.length === 0" class="col-12 text-center">
+        <div class="mt-5 row text-center">
+            <div v-if="items.length === 0" class="col-12">
                 <p>No hay registros disponibles.</p>
             </div>
-            <div>
-                <b-table label-sort-asc label-sort-desc bordered responsive class="shadow rounded" striped hover :items="items" :fields="fields">
+            <div v-if="items.length > 0">
+                <b-table label-sort-asc label-sort-desc bordered responsive class="shadow rounded" striped hover :items="items" :fields="fields" 
+                        :per-page="perPage" :current-page="currentPage">
                     <template v-slot:cell(fkStatus.statusName)="data">
                         <td
                             :class="{ 'badge text-bg-success': data.value === 'enable', 'badge text-bg-danger': data.value !== 'enable' }">
@@ -23,7 +24,6 @@
                     </template>
                     <template v-slot:cell(actions)="data">
                         <td class="d-flex justify-content-center">
-
                             <b-button @click="updateStatus(data.item.numWorker, data.item.fkStatus.statusName)" class="w-100">
                                 <b-icon-arrow-repeat></b-icon-arrow-repeat>
                                 {{ data.item.fkStatus.statusName === 'enable' ? 'Desabilitar' : 'Habilitar' }}
@@ -31,6 +31,14 @@
                         </td>
                     </template>
                 </b-table>
+                <div class="d-flex justify-content-end mt-3" v-if="items.length > 0">
+                    <b-pagination
+                        v-model="currentPage"
+                        :total-rows="rows"
+                        :per-page="perPage"
+                        class="custom-pagination"
+                    ></b-pagination>
+                </div>
             </div>
         </div>
         <Loading v-if="showLoading" />
@@ -45,6 +53,8 @@ import WorkerService from '../../../../../services/WorkerService';
 export default {
     data() {
         return {
+            perPage: 10,
+            currentPage: 1,
             showLoading: false,
             items: [],
             fields: [
@@ -87,7 +97,9 @@ export default {
                 if (data.statusCode === 200) {
                     this.showLoading = false;
                     this.items = [...data.data]
-                    console.log(this.items);
+                } else {
+                    this.showLoading = false;
+                    Alerts.showMessageSuccess("Error al traer trabajadores", "error");
                 }
             } catch (error) {
                 this.showLoading = false;
@@ -95,47 +107,47 @@ export default {
             }
         }
     },
+    computed: {
+      rows() {
+        return this.items.length
+      }
+    },
     components: {
         addWorkerModal,
         Loading
     }
 };
 </script>
-  
-<style scoped>
 
-.open_sans {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    margin: 16px;
+<style>
+
+.custom-pagination .page-link {
+  color: #ffffff;
+  background-color: #272d36;
+  border-color: #272d36;
 }
 
-.linea_punto {
-    margin: 0 auto;
-    max-width: 290px;
-    width: 100%;
-    height: 2px;
-    background-color: #404e67;
-    position: relative;
+.custom-pagination .page-link:hover {
+  color: #ffffff;
+  background-color: #5a677c;
+  border-color: #5a677c;
 }
 
-.linea_punto::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: #404e67;
-    border: 8px solid #fff;
-    left: 50%;
-    top: -10px;
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    transform: translateX(-50%);
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-clip: padding-box;
-    box-sizing: content-box;
+.custom-pagination .page-item.active .page-link {
+  background-color: #717d8f;
+  border-color: #717d8f;
+  outline: none;
+
+  outline-width: 0;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  color: white;
+  pointer-events: none;
+  background-color: #272d36;
+  border-color: #272d36;
 }
 </style>

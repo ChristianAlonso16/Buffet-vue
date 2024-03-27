@@ -1,15 +1,16 @@
 <template>
-    <div class="mt-5 text-center">
-        <div class="linea_punto"></div>
-        <h4 class="open_sans">
-            Gestión de clientes
-        </h4>
-        <div class="mt-5 row">
+    <div>
+        <div class="mt-4">
+            <h1>Gestión de clientes</h1>
+            <h5>Lista de clientes</h5>
+        </div>
+        <div class="mt-5 row  text-center">
             <div v-if="items.length === 0" class="col-12 text-center">
                 <p>No hay registros disponibles.</p>
             </div>
-            <div>
-                <b-table label-sort-asc label-sort-desc bordered responsive class="shadow rounded text-center" striped hover :items="items" :fields="fields">
+            <div v-if="items.length > 0">
+                <b-table label-sort-asc label-sort-desc bordered responsive class="shadow rounded text-center" striped hover :items="items" :fields="fields"
+                :per-page="perPage" :current-page="currentPage">
                     <template v-slot:cell(fkStatus.statusName)="data">
                         <td
                             :class="{ 'badge text-bg-success': data.value === 'enable', 'badge text-bg-danger': data.value !== 'enable' }">
@@ -29,6 +30,14 @@
                         </td>
                     </template>
                 </b-table>
+                <div class="d-flex justify-content-end mt-3" v-if="items.length > 0">
+                    <b-pagination
+                        v-model="currentPage"
+                        :total-rows="rows"
+                        :per-page="perPage"
+                        class="custom-pagination"
+                    ></b-pagination>
+                </div>
             </div>
         </div>
         <Loading v-if="showLoading" />
@@ -46,6 +55,8 @@ export default {
     },
     data() {
         return {
+            perPage: 10,
+            currentPage: 1,
             showLoading: false,
             items: [],
             fields: [
@@ -63,6 +74,12 @@ export default {
     mounted() {
         this.showLoading = true;
         this.getClients();
+    },
+
+    computed: {
+      rows() {
+        return this.items.length
+      }
     },
 
     methods: {
@@ -87,50 +104,17 @@ export default {
                 if (data.statusCode === 200) {
                     this.items = [...data.data]
                     this.showLoading = false;
+                } else {
+                    Alerts.showMessageSuccess("Error al traer clientes", "error");
+                    this.showLoading = false;
                 }
 
             } catch (error) {
                 Alerts.showMessageSuccess("Error al traer clientes", "error");
+                this.showLoading = false;
             }
         },
     },
 };
 </script>
 
-<style scoped>
-.open_sans {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    margin: 16px;
-}
-
-.linea_punto {
-    margin: 0 auto;
-    max-width: 290px;
-    width: 100%;
-    height: 2px;
-    background-color: #404e67;
-    position: relative;
-}
-
-.linea_punto::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: #404e67;
-    border: 8px solid #fff;
-    left: 50%;
-    top: -10px;
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    transform: translateX(-50%);
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-clip: padding-box;
-    box-sizing: content-box;
-}
-
-</style>
