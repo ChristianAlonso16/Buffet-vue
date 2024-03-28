@@ -40,9 +40,9 @@
             this.getAssignments();
         },
         methods: {
-            async getAssignments(numWorker) {
+            async getAssignments() {
                 try {
-                    const data = await WorkerAssign.getWorkerAssign(numWorker);
+                    const data = await WorkerAssign.getWorkerAssign();
                     if(data.statusCode === 200) {
                         this.assignments = data.data.map(assign => ({
                             assignPackageName: assign.packageOrder.servicePackage.packageName,
