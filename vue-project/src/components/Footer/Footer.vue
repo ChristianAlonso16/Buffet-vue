@@ -1,84 +1,70 @@
 <template>
   <div>
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-      <div class="col mb-3">
-        <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-          <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
-        <p class="text-body-secondary">© 2023</p>
-      </div>
-      <div class="col mb-3"></div>
-      <div class="col mb-3">
-        <h5>Section</h5>
+    <footer
+      class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top"
+    >
+      <b-col cols="12" sm="6" md="2">
+        <div class="d-flex justify-content-center">
+          <b-img :src="logo" alt="Logo" class="img-fluid" rounded />
+        </div>
+      </b-col>
+      <b-col class="mt-3" cols="12" sm="6" md="4">
+        <h5>Contáctanos</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Home</a>
+          <li class="nav-item mt-4">
+            <a class="nav-link p-0 text-body-secondary">
+              <b-icon-telephone-fill /> +52 123 456 789</a
+            >
           </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Features</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">FAQs</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">About</a>
+          <li class="nav-item mt-4">
+            <a class="nav-link p-0 text-body-secondary">
+              <b-icon-envelope-fill /> arlindobuffet@gmail.com</a
+            >
           </li>
         </ul>
-      </div>
-      <div class="col mb-3">
-        <h5>Section</h5>
+      </b-col>
+      <b-col class="mt-3" cols="12" sm="6" md="2">
+        <h5>Encuéntranos</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Home</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Features</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">FAQs</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">About</a>
+          <li class="nav-item mt-4">
+            <a class="nav-link p-0 text-body-secondary">
+              <b-icon-geo-fill />
+              Avenida Palmira #34, Col. Palmira, Cuernavaca, Morelos CP 62490
+            </a>
           </li>
         </ul>
-      </div>
-      <div class="col mb-3">
-        <h5>Section</h5>
+      </b-col>
+      <b-col class="mt-3" cols="12" sm="6" md="4">
+        <h5>Síguenos</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Home</a>
+          <li class="nav-item mt-4">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              <b-icon-facebook />
+              arlindobuffet
+            </a>
           </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Features</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">FAQs</a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">About</a>
+          <li class="nav-item mt-4">
+            <a class="nav-link p-0 text-body-secondary">
+              <b-icon-instagram />
+              arlindobuffet
+            </a>
           </li>
         </ul>
-      </div>
+      </b-col>
     </footer>
   </div>
 </template>
 
 <script>
-  export default {
-      name:"Footer",
-      components:{}
-  }
+import Logo from "../../assets/img/Logo.jpg";
+export default {
+  name: "Footer",
+  data() {
+    return {
+      logo: Logo,
+    };
+  },
+};
 </script>
 
 <style></style>
