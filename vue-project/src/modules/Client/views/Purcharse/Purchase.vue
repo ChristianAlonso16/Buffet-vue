@@ -5,7 +5,7 @@
                 <b-container v-if="step === 1">
                     <b-row no-gutters>
                         <b-col md="6">
-                            <b-img fluid :src="paquet.image" class="rounded-4" />
+                            <b-img fluid :src="paquet.images[0].image" class="rounded-4" />
                             <h1 class="my-3 lp-subtitle">{{ paquet.packageName }}</h1>
                             <p class="mb-3 text-start fw-semibold">Descripción</p>
                             <b-card-text class="p-justify-text">
@@ -98,7 +98,7 @@
                                 </b-form-invalid-feedback>
                             </b-form-group>
                             <b-form-group label="Fecha de entrega" class="mt-4">
-                                <b-form-datepicker v-model="date" :state="states.dateState" />
+                                <b-form-datepicker v-model="order.orderDate" :state="states.dateState" />
                                 <b-form-invalid-feedback :state="states.dateState">
                                     Seleccionar una fecha posterior a 1 semana de la fecha actual
                                 </b-form-invalid-feedback>
@@ -118,39 +118,7 @@
                     <h3 style="text-align: center;" class="lp-subtitle">¡Estas a punto de concluir tu compra!</h3>
                     <b-row>
                         <b-col>
-                            <b-form-group label="Número de tarjeta" class="mt-5">
-                                <b-form-input class="r-input" v-model="payData.creditCard" pattern="\([0-9]{12}\)"
-                                    minlength="12" maxlength="12" :state="states.creditCardState" />
-                                <b-form-invalid-feedback :state="states.creditCardState">
-                                    El campo debe de contener únicamente números
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                            <b-row class="mt-5">
-                                <b-col>
-                                    <b-form-group label="Fecha expiración">
-                                        <b-form-input class="r-input" pattern="\([0-9]{4}\)" minlength="5" maxlength="5"
-                                            :state="states.expirationDate" />
-                                        <b-form-invalid-feedback :state="states.expirationDate">
-                                            Campo obligatorio
-                                        </b-form-invalid-feedback>
-                                    </b-form-group>
-                                </b-col>
-                                <b-col>
-                                    <b-form-group label="CVV">
-                                        <b-form-input class="r-input" v-model="payData.cvv" pattern="\([0-9]{3}\)/"
-                                            minlength="3" maxlength="3" :state="states.cvvState" />
-                                        <b-form-invalid-feedback :state="states.cvvState">
-                                            Campo obligatorio
-                                        </b-form-invalid-feedback>
-                                    </b-form-group>
-                                </b-col>
-                                <b-form-group label="Nombre del propietario" class="mt-5">
-                                    <b-form-input class="r-input" v-model="payData.owner" :state="states.ownerState" />
-                                    <b-form-invalid-feedback :state="states.ownerState">
-                                        El campo no debe de contener caracteres especiales
-                                    </b-form-invalid-feedback>
-                                </b-form-group>
-                            </b-row>
+
                         </b-col>
                         <b-col class="text-center align-items-center">
                             <b-row class="align-items-start" style="padding-top:4%">
@@ -181,7 +149,7 @@
                             </b-row>
                             <b-row class="d-flex justify-content-end mt-4">
                                 <b-col cols="12" sm="12" md="6" lg="4" xl="4" class="pb-2">
-                                    <b-button class="r-button w-100" @click="generateOrder">Comprar</b-button>
+                                    <b-button class="r-button w-100" @click="generateOrder">Pagar con paypal</b-button>
                                 </b-col>
                             </b-row>
                         </b-col>
@@ -196,14 +164,15 @@
 <script>
 import Alerts from "../../../../services/Alerts";
 import packageService from "../../../../services/Packages";
-import Orders from "../../../../services/Orders";
 import Loading from "../../../../components/Loading/loading.vue";
+import PaymentService from "../../../../services/PaymentService"
 
-export default {
+export default {    
     components: {
         Loading
     },
     data() {
+
         return {
             showLoading: false,
             step: 1,
@@ -213,11 +182,11 @@ export default {
                 disctric: "",
                 postalCode: null,
                 city: "",
+                orderDate: null,
                 comments: "",
                 userEmail: "k@gmail.com",
                 packageName: null,
             },
-            date: null,
             image: "",
             paquet: null,
             payData: {
@@ -240,7 +209,12 @@ export default {
             }
         };
     },
+    // created(){
+    //     this.$store.dispatch('setOrder', this.order);
+
+    // },
     methods: {
+        
         validateLetters(string) {
             const regex = /^([a-zA-Z ]{2,252})+$/;
             if (regex.test(string) && string.trim() !== '') {
@@ -308,7 +282,7 @@ export default {
             this.states.cityState = this.validateLetters(this.order.city) ? true : false;
             this.states.commentsState = this.validateLetters(this.order.comments) ? true : false;
             this.states.postalCodeState = this.validateCP() ? true : false;
-            this.states.dateState = this.validateSelectedDate(this.date) ? true : false;
+            this.states.dateState = this.validateSelectedDate(this.order.orderDate) ? true : false;
 
             if (!this.states.streetState || !this.states.disctricState || !this.states.cityState || !this.states.commentsState || !this.states.postalCodeState || !this.states.dateState) {
                 Alerts.showMessageSuccess("Complete todos los campos antes de continuar", "info");
@@ -335,26 +309,25 @@ export default {
             }
         },
 
+        
         async generateOrder(ev) {
             ev.preventDefault();
+            localStorage.setItem("orden", JSON.stringify(this.order));
             this.states.creditCardState = this.validateCard() ? true : false;
             this.states.cvvState = this.validateCvv() ? true : false;
             this.states.ownerState = this.validateLetters(this.payData.owner) ? true : false;
             this.states.expirationDateState = this.validateExpiration() ? true : false;
 
-            if (!this.states.creditCardState || !this.states.cvvState || !this.states.ownerState) {
-                Alerts.showMessageSuccess("Llene todos los campos antes de continuar", "info");
-                return;
-            }
             try {
                 this.showLoading = true;
-                const message = await Orders.addOrder(this.order);
-                console.log(message);
-                if (message.statusCode === 201) {
-                    Alerts.showMessageSuccess("Compra registrada exitosamente", "success");
-                    this.$router.push("/home");
+                const pay = await PaymentService.pay(this.order.orderPrice);
+                if (pay.status === 200) {
+                    window.location.href = pay.data;
+                    
                 }
+
             } catch (error) {
+                console.log(error);
                 Alerts.showMessageSuccess("Error al registrar orden", "error");
             } finally {
                 this.showLoading = false;

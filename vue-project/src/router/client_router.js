@@ -3,6 +3,8 @@ import AllPackets from "../modules/Client/views/AllPackets/AllPackets.vue";
 import Paque from "../modules/Client/views/Packet/Pack.vue";
 import HistorialId from "../modules/Client/views/Follow-up/FollowUp.vue";
 import Purchase from "../modules/Client/views/Purcharse/Purchase.vue";
+import SuccessPayment from "../modules/Client/views/payment/payment-success/SuccessPayment.vue"
+import CancelPayment from "../modules/Client/views/payment/payment-cancel/CancelPayment.vue"
 export default [
   {
     path: "",
@@ -51,8 +53,23 @@ export default [
         meta: {
           title: "Resumen Compra"
         }
+      },
+      {
+        path:"/s",
+        name:"pago",
+        component: SuccessPayment,
+        meta: {
+          title: "Pago realizado"
+        }
+      },
+      {
+        path:"/cancelarPago",
+        name:"cancelar",
+        component: CancelPayment,
+        meta: {
+          title: "Pago cancelado"
+        }
       }
     ],
   },
-  //resto de paths de cliente
 ];
