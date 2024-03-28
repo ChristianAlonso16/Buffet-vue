@@ -10,10 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <b-navbar-nav>
         <b-nav-item to="home">Inicio</b-nav-item>
-        <b-nav-item to="home">Comida</b-nav-item>
-        <b-nav-item to="home">Transporte</b-nav-item>
-        <b-nav-item to="home">Utileria</b-nav-item>
-        <b-nav-item to="home">Eventos</b-nav-item>
+        <b-nav-item to="paquetes">Paquetes</b-nav-item>
       </b-navbar-nav>
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
         </ul>
