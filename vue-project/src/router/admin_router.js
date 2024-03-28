@@ -3,6 +3,7 @@ import Dasboard from "../modules/Admin/views/Dashboard/Dashboard.vue"
 import Clients from "../modules/Admin/views/Clients/Clients.vue"
 import Workers from "../modules/Admin/views/Workers/Workers.vue"
 import NewWorker from "../modules/Admin/views/newWorker/NewWork.vue"
+import Packages from "../modules/Admin/views/Packages/Packages.vue";
 
 export default [
     {
@@ -52,6 +53,14 @@ export default [
                 component: NewWorker,
                 meta:{
                     title: 'nuevoTrabajador'
+                }
+            },
+            {
+                path:'/admin/paquetes',
+                name:'paquetes',
+                component:Packages,
+                meta:{
+                    title:'paquetes'
                 }
             }
         ]

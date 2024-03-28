@@ -1,6 +1,8 @@
 import Historial from "../modules/Client/views/History/history_orders.vue";
-import Paquetes from "../modules/Client/views/Packages/packages.vue";
-import Paque from "../modules/Client/views/Packet/packet.vue";
+import AllPackets from "../modules/Client/views/AllPackets/AllPackets.vue";
+import Paque from "../modules/Client/views/Packet/Pack.vue";
+import HistorialId from "../modules/Client/views/Follow-up/FollowUp.vue";
+import Purchase from "../modules/Client/views/Purcharse/Purchase.vue";
 export default [
   {
     path: "",
@@ -21,19 +23,35 @@ export default [
       {
         path: "/paquetes",
         name: "paquetes",
-        component: Paquetes,
+        component: AllPackets,
         meta: {
           title: "Paquetes",
         },
       },
       {
-        path: "/paquete" + "/:id",
+        path: "/paquete/:packageName",
         name: "paquete",
         component: Paque,
         meta: {
           title: "Paquete",
         },
       },
+      {
+        path: "/seguimiento/:id",
+        name: "seguimiento",
+        component: HistorialId,
+        meta: {
+          title: "Seguimiento",
+        },
+      },
+      {
+        path:"/paquete/:packageName/comprar",
+        name:"resumenCompra",
+        component: Purchase,
+        meta: {
+          title: "Resumen Compra"
+        }
+      }
     ],
   },
   //resto de paths de cliente
